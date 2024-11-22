@@ -290,27 +290,25 @@ let calcAverage1 = (arr) => {
 
 console.log(calcAverage1(arr));
 const tempHH = [3, -2, -6, 1, "error", 9, 13, 17, 15, 14, 9, 5];
+NumericVal = tempHH.filter((val) => typeof val === "number");
 
-const temp = [1, 2, 3, 4, 5];
-let newT = [];
+let lowest = Math.min(...NumericVal);
+let highest = Math.max(...NumericVal);
 
-function Amplitude(a) {
-  for (let i = 0; i < temp.length; i++) {
-    if (temp[a] < temp[i]) {
-      newT.push(temp[i]);
-      // console.log(temp.length - 1);
-    }
+let Amplitude = highest - lowest;
 
-    if (i == temp.length - 1 && newT.length == 0) {
-      return temp[a];
-    }
-    if (i == temp.length - 1 && newT.length !== 0) {
-      newT = [];
-      return Amplitude(a + 1);
-    }
+console.log(Amplitude);
+
+let temp1 = [17, 21, 23];
+
+let temp2 = [12, 5, -5, 0, 4];
+
+let forecastWeather = (temp1) => {
+  let result;
+  for (let i = 0; i < temp1.length; i++) {
+    console.log(temp1[i]);
+    console.log(`....${temp1[i]}C in ${temp1.indexOf(temp1[i]) + 1} days`);
   }
+};
 
-  return temp[a];
-}
-
-console.log(Amplitude(0));
+forecastWeather(temp1);
