@@ -5,13 +5,17 @@ const dice = document.querySelector('.dice');
 const btnRoll = document.querySelector('.btn--roll');
 const current0 = document.getElementById('current--0');
 const current1 = document.getElementById('current--1');
+const player1 = document.querySelector('.player--0');
+const Hold = document.querySelector('.btn--hold');
 
-console.log(current1.textContent);
+// console.log(current1.textContent);
 
 score0EL.textContent = 0;
 score1EL.textContent = 0;
 let currentScore = 0;
 dice.classList.add('hidden');
+
+let scores = [0, 0];
 
 let ActiveScore = 0;
 
@@ -56,14 +60,24 @@ function diceRoll() {
 
   if (randomNum !== 1) {
     currentScore += randomNum;
-    document.getElementById(`current--${ActiveScore}`) = currentScore
-  }
-  else{
-    document.getElementById(`current--${ActiveScore}`).textContent = 0
-    ActiveScore = ActiveScore === 0 ? 1: 0
-    currentScore = 0
+    document.getElementById(`current--${ActiveScore}`).textContent =
+      currentScore;
+    // console.log(currentScore);
+  } else {
+    document.getElementById(`current--${ActiveScore}`).textContent = 0;
+    ActiveScore = ActiveScore === 0 ? 1 : 0;
+    currentScore = 0;
+
+    document.querySelector(`.player--0`).classList.toggle('player--active');
+    document.querySelector(`.player--1`).classList.toggle('player--active');
   }
 }
 
 btnRoll.addEventListener('click', diceRoll);
 
+function saveYourScore() {
+  scores[ActiveScore] += currentScore;
+  document.querySelector(`score--${ActiveScore}`) = scores[ActiveScore];
+}
+
+Hold.addEventListener('click', saveYourScore);
