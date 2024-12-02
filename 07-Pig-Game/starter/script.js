@@ -81,3 +81,11 @@ function saveYourScore() {
 }
 
 Hold.addEventListener('click', saveYourScore);
+
+
+let saveYourScore = () => {
+  scores[ActiveScore] += currentScore;
+  document.querySelector(`score--${ActiveScore}`) = scores[ActiveScore];
+}
+
+saveYourScore()
