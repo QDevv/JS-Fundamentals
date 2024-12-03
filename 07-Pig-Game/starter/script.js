@@ -77,15 +77,17 @@ btnRoll.addEventListener('click', diceRoll);
 
 function saveYourScore() {
   scores[ActiveScore] += currentScore;
-  document.querySelector(`score--${ActiveScore}`) = scores[ActiveScore];
+  console.log(scores[ActiveScore]);
+  console.log(currentScore);
+  document.querySelector(`#score--${ActiveScore}`).textContent =
+    scores[ActiveScore];
 }
 
 Hold.addEventListener('click', saveYourScore);
 
+// let saveYourScore = () => {
+//   scores[ActiveScore] += currentScore;
+//   document.querySelector(`score--${ActiveScore}`) = scores[ActiveScore];
+// }
 
-let saveYourScore = () => {
-  scores[ActiveScore] += currentScore;
-  document.querySelector(`score--${ActiveScore}`) = scores[ActiveScore];
-}
-
-saveYourScore()
+// saveYourScore()
