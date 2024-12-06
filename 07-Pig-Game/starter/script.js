@@ -76,10 +76,11 @@ function diceRoll() {
 btnRoll.addEventListener('click', diceRoll);
 
 function saveYourScore() {
+  console.log(`hold button`);
   scores[ActiveScore] += currentScore;
   console.log(scores[ActiveScore]);
   console.log(currentScore);
-  document.querySelector(`#score--${ActiveScore}`).textContent =
+  document.getElementById(`score--${ActiveScore}`).textContent =
     scores[ActiveScore];
 }
 
