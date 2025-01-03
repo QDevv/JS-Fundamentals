@@ -53,6 +53,15 @@ let ActiveScore = 0;
 
 // randomDice ();
 
+const switch_ = () => {
+  document.getElementById(`current--${ActiveScore}`).textContent = 0;
+  ActiveScore = ActiveScore === 0 ? 1 : 0;
+  currentScore = 0;
+
+  document.querySelector(`.player--0`).classList.toggle('player--active');
+  document.querySelector(`.player--1`).classList.toggle('player--active');
+};
+
 function diceRoll() {
   let randomNum = Math.trunc(Math.random() * 6) + 1;
   dice.classList.remove('hidden');
@@ -64,12 +73,7 @@ function diceRoll() {
       currentScore;
     // console.log(currentScore);
   } else {
-    document.getElementById(`current--${ActiveScore}`).textContent = 0;
-    ActiveScore = ActiveScore === 0 ? 1 : 0;
-    currentScore = 0;
-
-    document.querySelector(`.player--0`).classList.toggle('player--active');
-    document.querySelector(`.player--1`).classList.toggle('player--active');
+    switch_();
   }
 }
 
@@ -82,6 +86,8 @@ function saveYourScore() {
   console.log(currentScore);
   document.getElementById(`score--${ActiveScore}`).textContent =
     scores[ActiveScore];
+
+  switch_();
 }
 
 Hold.addEventListener('click', saveYourScore);
