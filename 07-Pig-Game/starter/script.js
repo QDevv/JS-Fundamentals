@@ -80,12 +80,19 @@ function diceRoll() {
 btnRoll.addEventListener('click', diceRoll);
 
 function saveYourScore() {
-  console.log(`hold button`);
+  // Add current score to active player score
+
   scores[ActiveScore] += currentScore;
-  console.log(scores[ActiveScore]);
-  console.log(currentScore);
+
   document.getElementById(`score--${ActiveScore}`).textContent =
     scores[ActiveScore];
+
+  // check if player score is >= 100
+  if (scores[ActiveScore] >= 20) {
+    document
+      .querySelector(`.player--${ActiveScore}`)
+      .classList.add('player--winner');
+  }
 
   switch_();
 }
