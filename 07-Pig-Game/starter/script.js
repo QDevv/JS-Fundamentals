@@ -7,6 +7,7 @@ const current0 = document.getElementById('current--0');
 const current1 = document.getElementById('current--1');
 const player1 = document.querySelector('.player--0');
 const Hold = document.querySelector('.btn--hold');
+const newGame = document.querySelector('.btn--new');
 
 // console.log(current1.textContent);
 
@@ -105,3 +106,24 @@ Hold.addEventListener('click', saveYourScore);
 // }
 
 // saveYourScore()
+
+let resetFunc = () => {
+  score0EL.textContent = 0;
+  score1EL.textContent = 0;
+  currentScore = 0;
+  dice.classList.add('hidden');
+  document.getElementById(`current--0`).textContent = currentScore;
+  document.getElementById(`current--1`).textContent = currentScore;
+
+  if (
+    document.querySelector(`.player--0`).classList.contains('player--winner') ||
+    document.querySelector(`.player--1`).classList.contains('player--winner')
+  ) {
+    document.querySelector(`.player--0`).classList.remove('player--winner');
+
+    document.querySelector(`.player--1`).classList.remove('player--winner');
+    ActiveScore = 0;
+  }
+};
+
+newGame.addEventListener('click', resetFunc);
