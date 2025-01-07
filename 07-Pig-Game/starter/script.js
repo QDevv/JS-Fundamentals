@@ -139,3 +139,25 @@ Hold.addEventListener('click', saveYourScore);
 // let resetFunc = () => {};
 
 newGame.addEventListener('click', init);
+
+// scoping
+// Scoping ask the question where do variables live? or where can we access a certain variable and where not?
+
+// There are 3 types of scoping in JS.
+// - The Global scope
+// - The function scope
+// - The Block scope
+
+// Only let and const variable are block-scoped. Variable declared with VAR ends up in the nearest function scope(VAR is function-scoped)
+
+// Lexical scoping
+// The rules of where we can access variables are based on where in the code functions and blocks are written
+
+// Scope chaining
+// Every scopes always has access to all variables in its outer scopes. This is the scope chain
+
+// when a variable is not on the current scope, the engine looks up in the scope chain until it finds the variable it is looking for. This called variable look up
+
+// scope chain is a one way street; a scope will never have access to variables in an inner scope
+
+// the order of function calls does not affect scope chain
