@@ -97,7 +97,7 @@ console.log(z === window.z);
 
 const Jesus = {
   year: 1994,
-  calcAge: function (params) {
+  calcAge: function () {
     console.log(this.year);
   },
 };
@@ -114,4 +114,38 @@ matilda.calcAge();
 
 const f = matilda.calcAge;
 // console.log(f());
-f();
+// f();
+
+const Test = {
+  year: 2011,
+  calcYear: function () {
+    console.log(this.year);
+    let self = this;
+    // const greet = function () {
+    //   console.log(self.year - 10);
+    // };
+    // greet();
+
+    const greet = () => {
+      console.log(this.year - 4);
+    };
+    greet();
+  },
+};
+
+Test.calcYear();
+
+// Argument Keyword
+const addEx = function (a, b) {
+  console.log(arguments);
+  return a + b;
+};
+
+addEx(2, 5, 6, 7);
+
+const arr = (a, b) => {
+  console.log(arguments);
+
+  return a + b;
+};
+arr(2, 5, 8);
