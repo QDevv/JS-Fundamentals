@@ -148,4 +148,56 @@ const arr = (a, b) => {
 
   return a + b;
 };
-arr(2, 5, 8);
+// arr(2, 5, 8);
+
+// PRIMITVE & REFERENCE VALUES
+
+// PRIMITIVE VALUES - Number, strings, Boolean, Bigint, undefined, null, symbol, NAN
+
+// When primitive values are created, An identifier, Address & Values are created in the callstack;
+// The Identifier holds the variable name, which comes with a distinct address. the value is then stored in this address
+
+// an address is created and age points to that address
+let age = 30;
+
+// oldage is pointing to the address thats holding the value 30
+let oldage = age;
+
+// a new address is created to hold this value, and the age variable now points to thisnew address
+age = 31;
+
+// REFERENCE VALUES - Objects, functions etc
+
+// When an object is created, an address and value is created both in the CALLSTACK and in the HEAP. When you assign a new variable to the previously created object(essentially copying the properties and values) and you change the value of any of the properties of the new variable, it also afeect the previous object.
+const mee = {
+  name: 'jonas',
+  age: 40,
+};
+
+const friend = mee;
+
+friend.age = 20;
+
+friend.club = 'barcelona';
+
+console.log('friend', friend);
+console.log('mee', mee);
+
+// copying Objects
+
+const jessica = {
+  lastName: 'williams',
+  firstName: 'Jessica',
+  age: 28,
+  family: ['alice', 'tola'],
+};
+
+const Jessica2 = Object.assign({}, jessica);
+
+Jessica2.lastName = 'Davis';
+
+console.log(Jessica2, jessica);
+
+Jessica2.family.push('joy');
+
+console.log(Jessica2, jessica);
