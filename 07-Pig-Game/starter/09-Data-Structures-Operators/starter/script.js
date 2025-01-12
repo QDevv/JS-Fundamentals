@@ -6,8 +6,8 @@ const flights =
 
 // Data needed for first part of the section
 const restaurant = {
-  name: 'Classico Italiano',
-  location: 'Via Angelo Tavanti 23, Firenze, Italy',
+  Name: 'Classico Italiano',
+  locations: 'Via Angelo Tavanti 23, Firenze, Italy',
   categories: ['Italian', 'Pizzeria', 'Vegetarian', 'Organic'],
   starterMenu: ['Focaccia', 'Bruschetta', 'Garlic Bread', 'Caprese Salad'],
   mainMenu: ['Pizza', 'Pasta', 'Risotto'],
@@ -15,7 +15,18 @@ const restaurant = {
   order: function (starterIndex, mainIndex) {
     return [this.starterMenu[starterIndex], this.mainMenu[mainIndex]];
   },
+  orderDelivery: function ({
+    starterIndex,
+    mainIndex,
+    time,
+    address = 'milan',
+  }) {
+    console.log(
+      `Hello! Your ${this.starterMenu[starterIndex]} and ${this.mainMenu[mainIndex]}will be available at ${address} by ${time} `
+    );
 
+    console.log(starterIndex);
+  },
   openingHours: {
     thu: {
       open: 12,
@@ -31,6 +42,19 @@ const restaurant = {
     },
   },
 };
+
+restaurant.orderDelivery({
+  time: '4:30pm',
+  address: 'Via Angelo Tavanti 23, Firenze, Italy',
+  starterIndex: 2,
+  mainIndex: 2,
+});
+
+restaurant.orderDelivery({
+  time: '1:30pm',
+  starterIndex: 1,
+  mainIndex: 0,
+});
 
 // Destructuring
 
@@ -69,3 +93,50 @@ const nested = [2, 4, [5, 6]];
 const [i, , [j, k]] = nested;
 
 console.log(i, j, k);
+
+// Default Values
+const [p = 9, q = 1, r = 1] = [3, 6];
+
+console.log(p, q, r);
+
+// Destructuring Objects
+
+const { Name, categories, starterMenu, locations, openingHours } = restaurant;
+
+console.log(Name, categories, starterMenu, locations);
+
+const { Name: newName, categories: tags = [] } = restaurant;
+
+console.log(newName, tags);
+
+// Mutilating Variables?
+
+let ac = 111;
+let bc = 44;
+
+const points = { ac: 3, bc: 5 };
+
+({ ac, bc } = points);
+
+console.log(ac, bc);
+
+const { fri } = openingHours;
+const {
+  fri: { open, close },
+} = openingHours;
+
+console.log(fri);
+console.log(open, close);
+
+// You can change the variable name as in below
+
+const {
+  fri: { open: x, close: y },
+} = openingHours;
+
+console.log(x, y);
+
+// const Person = {
+//   name: 'boye',
+//   age: '29',
+// };
