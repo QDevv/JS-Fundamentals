@@ -140,3 +140,17 @@ console.log(x, y);
 //   name: 'boye',
 //   age: '29',
 // };
+
+// SPREAD OPERATOR
+let arr = [7, 8, 9];
+
+let newArr = [1, 2, 3, ...arr];
+
+console.log(newArr);
+
+let add = [...newArr, 30];
+
+console.log(add);
+
+let addPlusArr = [...add, ...arr];
+console.log(addPlusArr);
