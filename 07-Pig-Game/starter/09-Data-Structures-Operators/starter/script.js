@@ -141,7 +141,7 @@ console.log(x, y);
 //   age: '29',
 // };
 
-// SPREAD OPERATOR
+// SPREAD OPERATOR - useful when we want to write values seperated by comma / multiple values seperated by comma
 let arr = [7, 8, 9];
 
 let newArr = [1, 2, 3, ...arr];
@@ -152,5 +152,37 @@ let add = [...newArr, 30];
 
 console.log(add);
 
+// join two arrays
+
 let addPlusArr = [...add, ...arr];
 console.log(addPlusArr);
+
+// iterables: arrays, strings, maps and sets. not object
+
+const str = 'abu';
+
+const letters = [...str, 'b'];
+
+console.log(letters);
+
+const ingredient = [
+  // prompt('lets make pasta: Ingredients1?'),
+  // prompt('ingredients2'),
+  // prompt('ingredient3'),
+];
+
+console.log(ingredient);
+console.log(...ingredient);
+
+const newRestraunt = { founder: 'tello', ...restaurant, foundedIn: 'spain' };
+
+console.log(newRestraunt);
+
+const newRestrauntCopy = {
+  ...newRestraunt,
+};
+newRestrauntCopy.Name = 'roma restorante';
+
+console.log(newRestraunt);
+
+console.log(newRestrauntCopy);
