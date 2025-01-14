@@ -10,10 +10,21 @@ const restaurant = {
   locations: 'Via Angelo Tavanti 23, Firenze, Italy',
   categories: ['Italian', 'Pizzeria', 'Vegetarian', 'Organic'],
   starterMenu: ['Focaccia', 'Bruschetta', 'Garlic Bread', 'Caprese Salad'],
-  mainMenu: ['Pizza', 'Pasta', 'Risotto'],
+  mainMenu: ['Pizza', 'Pasta', 'Risotto', 'sss'],
+
+  orderPasta: function (ing1, ing2, ing3) {
+    console.log(
+      `Here is your delicious pasta! with${ing1},${ing2} and ${ing3}`
+    );
+  },
 
   order: function (starterIndex, mainIndex) {
     return [this.starterMenu[starterIndex], this.mainMenu[mainIndex]];
+  },
+
+  orderPizza: function (mainIngredient, ...otherIngredient) {
+    console.log(mainIngredient);
+    console.log(otherIngredient);
   },
   orderDelivery: function ({
     starterIndex,
@@ -42,6 +53,7 @@ const restaurant = {
     },
   },
 };
+restaurant.orderPizza('pepper', 'onion', 'salt', 'lettuce');
 
 restaurant.orderDelivery({
   time: '4:30pm',
@@ -55,6 +67,8 @@ restaurant.orderDelivery({
   starterIndex: 1,
   mainIndex: 0,
 });
+
+restaurant.orderPasta();
 
 // Destructuring
 
@@ -170,9 +184,9 @@ const ingredient = [
   // prompt('ingredients2'),
   // prompt('ingredient3'),
 ];
-
-console.log(ingredient);
-console.log(...ingredient);
+restaurant.orderPasta(...ingredient);
+// console.log(ingredient);
+// console.log(...ingredient);
 
 const newRestraunt = { founder: 'tello', ...restaurant, foundedIn: 'spain' };
 
@@ -186,3 +200,45 @@ newRestrauntCopy.Name = 'roma restorante';
 console.log(newRestraunt);
 
 console.log(newRestrauntCopy);
+
+// REST & spread
+
+// spread
+// on the RHS of =
+const arrv = [1, 2, 3, ...[4, 5]];
+
+console.log(arrv);
+
+// REST, cos its on the LHS of = ---used when you want to write variable names seperated by commas
+const [h, z, ...others] = [1, 2, 3, 4, 5];
+
+console.log(h, z, others);
+// Merging occured here: ...restaurant.mainMenu and ...restaurant.starterMenu,
+const [pizza, , Risotto, ...otherFood] = [
+  ...restaurant.mainMenu,
+  ...restaurant.starterMenu,
+];
+
+console.log(pizza, Risotto, otherFood);
+
+const { sat, ...weekdays } = restaurant.openingHours;
+
+// const { ...weekdays } = restaurant.openingHours;
+console.log(weekdays);
+
+// function
+function addFunc(...numbers) {
+  let sum = 0;
+
+  for (let i = 0; i < numbers.length; i++) {
+    sum += numbers[i];
+  }
+  console.log(sum);
+}
+
+addFunc(2, 3);
+addFunc(4, 5, 6, 7, 8);
+
+const g = [2, 6, 4];
+
+addFunc(...g);
