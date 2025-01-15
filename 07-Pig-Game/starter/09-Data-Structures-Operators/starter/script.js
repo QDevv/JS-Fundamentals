@@ -335,3 +335,79 @@ rest2.owner &&= '<anon>';
 console.log(rest1, rest2);
 
 // console.log(rest1, rest2);
+
+// Challenge on Data structures - Operators
+
+const game = {
+  team1: 'Bayern Munich',
+  team2: 'Borrussia Dortmund',
+  players: [
+    [
+      'Neuer',
+      'Pavard',
+      'Martinez',
+      'Alaba',
+      'Davies',
+      'Kimmich',
+      'Goretzka',
+      'Coman',
+      'Muller',
+      'Gnarby',
+      'Lewandowski',
+    ],
+    [
+      'Burki',
+      'Schulz',
+      'Hummels',
+      'Akanji',
+      'Hakimi',
+      'Weigl',
+      'Witsel',
+      'Hazard',
+      'Brandt',
+      'Sancho',
+      'Gotze',
+    ],
+  ],
+  score: '4:0',
+  scored: ['Lewandowski', 'Gnarby', 'Lewandowski', 'Hummels'],
+  date: 'Nov 9th, 2037',
+  odds: {
+    team1: 1.33,
+    D: 3.25,
+    team2: 6.5,
+  },
+};
+
+// const { players } = game;
+
+// console.log(players);
+const { players } = game;
+
+console.log(players);
+
+const [players1, players2] = players;
+
+console.log(players1);
+
+console.log(players2);
+
+const [gk, ...outfieldPlayers] = players1;
+
+console.log(gk, outfieldPlayers);
+
+const bothTeams = [...players1, ...players2];
+
+console.log(bothTeams);
+
+const players1Final = [...players1, 'Thiago', 'Coutinho', 'Perisic'];
+
+console.log(players1Final);
+
+const { team1, D, team2 } = game.odds;
+
+console.log(team1, D, team2);
+
+function printGoals(num) {}
+
+// printGoals(...)
