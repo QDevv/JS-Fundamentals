@@ -96,17 +96,17 @@ console.log(main, secondary);
 // lrestaurant.order(2, 0);
 
 // lrestaurant.order(2, 0);
-console.log(restaurant.order(2, 0));
+// console.log(restaurant.order(2, 0));
 
-const [start, maincourse] = restaurant.order(2, 0);
+// const [start, maincourse] = restaurant.order(2, 0);
 
-console.log(start);
+// console.log(start);
 
-const nested = [2, 4, [5, 6]];
+// const nested = [2, 4, [5, 6]];
 
-const [i, , [j, k]] = nested;
+// const [i, , [j, k]] = nested;
 
-console.log(i, j, k);
+// console.log(i, j, k);
 
 // Default Values
 const [p = 9, q = 1, r = 1] = [3, 6];
@@ -125,22 +125,22 @@ console.log(newName, tags);
 
 // Mutilating Variables?
 
-let ac = 111;
-let bc = 44;
+// let ac = 111;
+// let bc = 44;
 
-const points = { ac: 3, bc: 5 };
+// const points = { ac: 3, bc: 5 };
 
-({ ac, bc } = points);
+// ({ ac, bc } = points);
 
-console.log(ac, bc);
+// console.log(ac, bc);
 
-const { fri } = openingHours;
-const {
-  fri: { open, close },
-} = openingHours;
+// const { fri } = openingHours;
+// const {
+//   fri: { open, close },
+// } = openingHours;
 
-console.log(fri);
-console.log(open, close);
+// console.log(fri);
+// console.log(open, close);
 
 // You can change the variable name as in below
 
@@ -156,28 +156,28 @@ console.log(x, y);
 // };
 
 // SPREAD OPERATOR - useful when we want to write values seperated by comma / multiple values seperated by comma
-let arr = [7, 8, 9];
+// let arr = [7, 8, 9];
 
-let newArr = [1, 2, 3, ...arr];
+// let newArr = [1, 2, 3, ...arr];
 
-console.log(newArr);
+// console.log(newArr);
 
-let add = [...newArr, 30];
+// let add = [...newArr, 30];
 
-console.log(add);
+// console.log(add);
 
 // join two arrays
 
-let addPlusArr = [...add, ...arr];
-console.log(addPlusArr);
+// let addPlusArr = [...add, ...arr];
+// console.log(addPlusArr);
 
 // iterables: arrays, strings, maps and sets. not object
 
-const str = 'abu';
+// const str = 'abu';
 
-const letters = [...str, 'b'];
+// const letters = [...str, 'b'];
 
-console.log(letters);
+// console.log(letters);
 
 const ingredient = [
   // prompt('lets make pasta: Ingredients1?'),
@@ -188,18 +188,18 @@ restaurant.orderPasta(...ingredient);
 // console.log(ingredient);
 // console.log(...ingredient);
 
-const newRestraunt = { founder: 'tello', ...restaurant, foundedIn: 'spain' };
+// const newRestraunt = { founder: 'tello', ...restaurant, foundedIn: 'spain' };
 
-console.log(newRestraunt);
+// console.log(newRestraunt);
 
-const newRestrauntCopy = {
-  ...newRestraunt,
-};
-newRestrauntCopy.Name = 'roma restorante';
+// const newRestrauntCopy = {
+//   ...newRestraunt,
+// };
+// newRestrauntCopy.Name = 'roma restorante';
 
-console.log(newRestraunt);
+// console.log(newRestraunt);
 
-console.log(newRestrauntCopy);
+// console.log(newRestrauntCopy);
 
 // REST & spread
 
@@ -207,12 +207,12 @@ console.log(newRestrauntCopy);
 // on the RHS of =
 const arrv = [1, 2, 3, ...[4, 5]];
 
-console.log(arrv);
+// console.log(arrv);
 
 // REST, cos its on the LHS of = ---used when you want to write variable names seperated by commas
 const [h, z, ...others] = [1, 2, 3, 4, 5];
 
-console.log(h, z, others);
+// console.log(h, z, others);
 // Merging occured here: ...restaurant.mainMenu and ...restaurant.starterMenu,
 const [pizza, , Risotto, ...otherFood] = [
   ...restaurant.mainMenu,
@@ -224,7 +224,7 @@ console.log(pizza, Risotto, otherFood);
 const { sat, ...weekdays } = restaurant.openingHours;
 
 // const { ...weekdays } = restaurant.openingHours;
-console.log(weekdays);
+// console.log(weekdays);
 
 // function
 function addFunc(...numbers) {
@@ -236,9 +236,102 @@ function addFunc(...numbers) {
   console.log(sum);
 }
 
-addFunc(2, 3);
-addFunc(4, 5, 6, 7, 8);
+// addFunc(2, 3);
+// addFunc(4, 5, 6, 7, 8);
 
 const g = [2, 6, 4];
 
 addFunc(...g);
+
+// SHORT CIRCUITING
+// || and && operators
+// they use any data types, return any data type
+
+// when the || operator is used(like below) the first truthy value is returned/selected
+
+console.log(3 || 'jonas');
+console.log('' || 'jonas');
+console.log(true || 0);
+console.log(undefined || null);
+
+// && is the opposite of ||
+
+// when the && operator is used(like below) the first falsey value is returned
+
+// console.log(4 && '');
+// console.log(undefined && null);
+
+// restaurant.numGuests = 23;
+
+// const restaurant1 = restaurant.numGuests ? restaurant.numGuests : 10;
+
+// const guest1 = restaurant.numGuests || 17;
+
+// console.log(guest1);
+
+// console.log(restaurant1);
+
+console.log(0 && 'jon');
+console.log(7 && 'jon');
+console.log(true && 'njm');
+
+if (restaurant.orderPizza) {
+  // restaurant.orderPizza();
+}
+
+restaurant.order && restaurant.orderPizza('maggi', 'spinach', 'pepperoni');
+
+console.log(
+  (4 && 0) || 8 || (7 && 8 && null && true) || ('yes' && undefined) || (8 && '')
+);
+
+// Nullish Coalescence: NC only recognizes null & undefined as falsey value. '' & 0 are truthy in NC
+
+restaurant.numGuests = 0;
+
+// const restaurant1 = restaurant.numGuests ? restaurant.numGuests : 10;
+
+const guest1 = restaurant.numGuests || 17;
+
+console.log(guest1);
+
+let guest2 = restaurant.numGuests ?? 11;
+console.log(guest2);
+
+const rest1 = {
+  name: 'The Place',
+  numGuests: 0,
+};
+
+const rest2 = {
+  name: 'The Place',
+  owner: 'Felix Dudgarden',
+};
+// rest2.numGuests = 11;
+// console.log(rest2);
+// rest1.numGuests = rest1.numGuests || 15;
+// rest2.numGuests = rest2.numGuests || 15;s
+
+// console.log(rest2);
+
+// OR ASSIGNMENT OPERATOR
+
+// rest1.numGuests ||= 5;
+// rest2.numGuests ||= 30;
+
+// console.log(rest1, rest2);
+
+// Nullish Assignment Operator
+rest1.numGuests ??= 15;
+rest2.numGuests ??= 30;
+
+// AND ASSIGNMENT : if you want to REdefine a variable thats already truthy, you can use AND ASSIGNMENT
+rest1.owner = rest1.owner && '<anon>';
+// rest2.owner = rest2.owner && '<anon>';
+
+// rest1.owner &&= '<anon>';
+rest2.owner &&= '<anon>';
+
+console.log(rest1, rest2);
+
+// console.log(rest1, rest2);
