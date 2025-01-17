@@ -188,18 +188,18 @@ restaurant.orderPasta(...ingredient);
 // console.log(ingredient);
 // console.log(...ingredient);
 
-// const newRestraunt = { founder: 'tello', ...restaurant, foundedIn: 'spain' };
+const newRestraunt = { founder: 'tello', ...restaurant, foundedIn: 'spain' };
 
-// console.log(newRestraunt);
+console.log(newRestraunt);
 
-// const newRestrauntCopy = {
-//   ...newRestraunt,
-// };
-// newRestrauntCopy.Name = 'roma restorante';
+const newRestrauntCopy = {
+  ...newRestraunt,
+};
+newRestrauntCopy.Name = 'roma restorante';
 
-// console.log(newRestraunt);
+console.log(newRestraunt);
 
-// console.log(newRestrauntCopy);
+console.log(newRestrauntCopy);
 
 // REST & spread
 
@@ -214,12 +214,12 @@ const [h, z, ...others] = [1, 2, 3, 4, 5];
 
 // console.log(h, z, others);
 // Merging occured here: ...restaurant.mainMenu and ...restaurant.starterMenu,
-const [pizza, , Risotto, ...otherFood] = [
+const [pza, , Risotto, ...otherFood] = [
   ...restaurant.mainMenu,
   ...restaurant.starterMenu,
 ];
 
-console.log(pizza, Risotto, otherFood);
+console.log(pza, Risotto, otherFood);
 
 const { sat, ...weekdays } = restaurant.openingHours;
 
@@ -228,6 +228,7 @@ const { sat, ...weekdays } = restaurant.openingHours;
 
 // function
 function addFunc(...numbers) {
+  console.log(numbers);
   let sum = 0;
 
   for (let i = 0; i < numbers.length; i++) {
@@ -404,10 +405,43 @@ const players1Final = [...players1, 'Thiago', 'Coutinho', 'Perisic'];
 
 console.log(players1Final);
 
-const { team1, D, team2 } = game.odds;
+// const { team1, D, team2 } = game.odds;
 
-console.log(team1, D, team2);
+const {
+  odds: { team1, D: draw, team2 },
+} = game;
+console.log(team1, draw, team2);
 
-function printGoals(num) {}
+// console.log(odds);
 
-// printGoals(...)
+// console.log(team1, D, team2);
+
+function printGoals(...players) {
+  console.log(players);
+  console.log(players.length);
+}
+printGoals('davies', 'kimmich', 'muller', 'lewy');
+
+console.log(game.odds.team1 || team2 || D);
+
+game.odds.team1 < game.odds.team2 &&
+  console.log(`${game.team1} has the lesser odds`);
+
+// printGoals(...game.scored);
+
+// FOR-OF LOOP
+const menu = [...restaurant.starterMenu, ...restaurant.mainMenu];
+
+for (const unit of menu) console.log(unit);
+
+// console.log(unit);
+
+for (const [iterator, tr] of menu.entries()) {
+  // console.log(...menu.entries());
+
+  console.log(iterator, tr);
+  // console.log(it);
+  // console.log(`${iterator}: ${tr}  `);
+}
+
+// console.log([...menu.entries()]);
