@@ -445,3 +445,66 @@ for (const [iterator, tr] of menu.entries()) {
 }
 
 // console.log([...menu.entries()]);
+
+// ES6 OBJECT LITERALSS
+const books = {
+  selfhelp: 'atomic habits',
+  adventure: 'GOT',
+};
+
+const countries = {
+  Asia: 'Japan',
+  africa: 'togo',
+  ...books,
+};
+
+console.log(countries);
+
+const cars = ['volvo', 'benz', 'Honda'];
+
+const Vehicles = {
+  [cars[1]]: { price: '$5000' },
+  [cars[1 + 1]]: { price: '$1000' },
+};
+
+console.log(Vehicles);
+
+// OPTIONAL CHAININ
+
+if (restaurant.openingHours && restaurant.openingHours.fri) {
+  console.log(restaurant.openingHours.fri);
+}
+
+// instead of doing the above do this
+
+console.log(restaurant.openingHours?.mon?.open);
+
+const days = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
+
+function closed(day) {
+  console.log(`we are closed on ${day}`);
+}
+
+for (const day of days) {
+  const open = restaurant.openingHours[day]?.open ?? 'closed';
+  console.log(`on${day} we open at ${open} `);
+  // console.log(restaurant.openingHours[day]?.open);
+
+  // if (restaurant.openingHours[day]) {
+  //   console.log(`we are open on${day}`);
+  // } else {
+  //   console.log(`we are closed on ${day}`);
+  // }
+}
+
+// Optional Chaining on method
+
+console.log(restaurant.order?.(0, 1) ?? 'this function doesnt exist');
+
+console.log(restaurant.orderRisotto?.(0, 1) ?? 'this function doesnt exist');
+
+// Optional Chaining on ARRAYS
+// const user = [{ name: 'joyce', age: 22 }];
+const user = [];
+
+console.log(user[0]?.name ?? 'empty array');
