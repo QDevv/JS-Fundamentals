@@ -30,10 +30,11 @@ const restaurant = {
     starterIndex,
     mainIndex,
     time,
-    address = 'milan',
+    address,
+    comments,
   }) {
     console.log(
-      `Hello! Your ${this.starterMenu[starterIndex]} and ${this.mainMenu[mainIndex]}will be available at ${address} by ${time} `
+      `Hello! Your ${this.starterMenu[starterIndex]} and ${this.mainMenu[mainIndex]}will be available at ${address} by ${time}. ${comments} `
     );
 
     console.log(starterIndex);
@@ -60,13 +61,14 @@ restaurant.orderDelivery({
   address: 'Via Angelo Tavanti 23, Firenze, Italy',
   starterIndex: 2,
   mainIndex: 2,
+  comments: 'Thanks for your patronage',
 });
 
-restaurant.orderDelivery({
-  time: '1:30pm',
-  starterIndex: 1,
-  mainIndex: 0,
-});
+// restaurant.orderDelivery({
+//   time: '1:30pm',
+//   starterIndex: 1,
+//   mainIndex: 0,
+// });
 
 restaurant.orderPasta();
 
@@ -212,7 +214,7 @@ const arrv = [1, 2, 3, ...[4, 5]];
 // REST, cos its on the LHS of = ---used when you want to write variable names seperated by commas
 const [h, z, ...others] = [1, 2, 3, 4, 5];
 
-// console.log(h, z, others);
+console.log(h, z, others);
 // Merging occured here: ...restaurant.mainMenu and ...restaurant.starterMenu,
 const [pza, , Risotto, ...otherFood] = [
   ...restaurant.mainMenu,
@@ -335,7 +337,7 @@ rest2.owner &&= '<anon>';
 
 console.log(rest1, rest2);
 
-// console.log(rest1, rest2);
+console.log(rest1.owner, rest2.owner);
 
 // Challenge on Data structures - Operators
 
@@ -371,7 +373,16 @@ const game = {
     ],
   ],
   score: '4:0',
-  scored: ['Lewandowski', 'Gnarby', 'Lewandowski', 'Hummels'],
+  scored: [
+    'Lewandowski',
+    'gnarby',
+    'Lewandowski',
+    'hummels',
+    'Lewandowski',
+    'gnarby',
+    'hummels',
+    'gnarby',
+  ],
   date: 'Nov 9th, 2037',
   odds: {
     team1: 1.33,
@@ -508,3 +519,123 @@ console.log(restaurant.orderRisotto?.(0, 1) ?? 'this function doesnt exist');
 const user = [];
 
 console.log(user[0]?.name ?? 'empty array');
+
+// lOOPING OVER AN OBJECT
+const softwareDev = {
+  designer: 'figma',
+  frontend: 'javaScript',
+  backend: 'Node Js',
+  API: 'rest',
+  browser: 'chrome',
+};
+
+let properties = Object.keys(softwareDev);
+let openStr = `to build a website you need the following: `;
+
+for (const unit of properties) {
+  // console.log(unit);
+  openStr += `${unit}, `;
+  console.log(openStr);
+}
+
+// LOOPING OVER A VALUE
+let value = Object.values(softwareDev);
+console.log(value);
+
+console.log(Object.entries(softwareDev));
+
+for (const [iterator, tr] of Object.entries(softwareDev)) {
+  console.log(iterator, tr);
+}
+const entries = Object.entries(openingHours);
+
+for (const [key, { open, close }] of entries) {
+  console.log(`on${key} we open by ${open} and close by ${close} `);
+}
+
+// Coding challenge
+
+for (const [no, players] of Object.entries(game.scored)) {
+  console.log(`goal ${Number(no) + 1}: ${players}
+
+  `);
+}
+let avg = 0;
+for (const odd of Object.values(game.odds)) {
+  avg += odd;
+}
+console.log(avg / Object.values(game.odds).length);
+// console.log(avg);
+
+// console.log(Object.values(game));
+
+// for (const [prop, val] of Object.entries(game.odds)) {
+//   // `${game[prop][{ prop }]}`;
+//   console.log(
+//     `Odd of ${game[prop] || 'draw'} ${
+//       game[prop] === 'Bayern Munich' || game[prop] === 'Borrussia Dortmund'
+//         ? 'winning'
+//         : ''
+//     } is ${val}`
+//   );
+// }
+
+// for (const [prop, val] of Object.entries(game.odds)) {
+//   // `${game[prop][{ prop }]}`;
+//   let draw = game[prop] ?? '';
+// }
+
+for (const [key, val] of Object.entries(game.odds)) {
+  let oddStr = `odd of ${
+    key === 'D' ? 'draw' : `victory ${game[key]}`
+  } ${val} `;
+
+  console.log(oddStr);
+}
+
+// const scorers = { ...game.scored };
+
+// console.log(scorers);
+
+function str({ Lewandowski, gnarby, hummels }) {
+  let scorers = { Lewandowski, gnarby, hummels };
+  // console.log(scorers);
+  return scorers;
+}
+
+let gSCorers = str(game.scored);
+
+console.log(gSCorers);
+
+for (const [key, val] of Object.entries(gSCorers)) {
+  let arr = [];
+  let multipleOcurrence = [];
+  for (let i = 0; i < game.scored.length; i++) {
+    !arr.includes(game.scored[i])
+      ? arr.push(game.scored[i])
+      : multipleOcurrence.push(game.scored[i]);
+
+    // console.log();
+    // console.log(game.scored);
+
+    // const scorers = { key };
+    // console.log(scorers);
+  }
+  console.log(multipleOcurrence);
+  console.log(key);
+  console.log(val);
+  gSCorers[key] = !multipleOcurrence.includes(key) ? 1 : [key].length + 1;
+
+  // console.log(arr);
+  console.log(multipleOcurrence);
+  console.log(gSCorers);
+
+  // console.log(multipleOcurrence[0]);
+}
+
+// if (!arr.includes(game.scored[i])) {
+//   arr.push(game.scored[i]);
+// } else {
+//   console.log(multipleOcurrence.push(game.scored[i]));
+//   return multipleOcurrence;
+// }
