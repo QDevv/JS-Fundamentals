@@ -310,12 +310,12 @@ const rest2 = {
   name: 'The Place',
   owner: 'Felix Dudgarden',
 };
-// rest2.numGuests = 11;
-// console.log(rest2);
-// rest1.numGuests = rest1.numGuests || 15;
-// rest2.numGuests = rest2.numGuests || 15;s
+rest2.numGuests = 11;
+console.log(rest2);
+rest1.numGuests ||= 15;
+rest2.numGuests = rest2.numGuests || 15;
 
-// console.log(rest2);
+console.log(rest1);
 
 // OR ASSIGNMENT OPERATOR
 
@@ -597,6 +597,9 @@ for (const [key, val] of Object.entries(game.odds)) {
 
 // console.log(scorers);
 
+let counter = 0;
+let multipleKeys = [];
+
 function str({ Lewandowski, gnarby, hummels }) {
   let scorers = { Lewandowski, gnarby, hummels };
   // console.log(scorers);
@@ -615,19 +618,39 @@ for (const [key, val] of Object.entries(gSCorers)) {
       ? arr.push(game.scored[i])
       : multipleOcurrence.push(game.scored[i]);
 
+    // console.log([i]);
+
+    console.log(counter);
+
+    // let add;
+
+    if (game.scored[(counter ||= 0)] === game.scored[i]) {
+      // let count;
+      // console.log(arr)
+      // console.log(game.scored);
+      multipleKeys.push(game.scored[i]);
+      console.log([multipleKeys]);
+    } else if (
+      game.scored.indexOf(game.scored[i + 1]) ===
+      game.scored.length - 1
+    ) {
+      counter++;
+    }
+    // count++;
+
     // console.log();
     // console.log(game.scored);
 
     // const scorers = { key };
     // console.log(scorers);
   }
-  console.log(multipleOcurrence);
-  console.log(key);
-  console.log(val);
-  gSCorers[key] = !multipleOcurrence.includes(key) ? 1 : [key].length + 1;
-
-  // console.log(arr);
-  console.log(multipleOcurrence);
+  // console.log(multipleOcurrence);
+  // console.log(key);
+  // console.log(val);
+  gSCorers[key] = !multipleOcurrence.includes(key)
+    ? 1
+    : // console.log(arr);
+      console.log(multipleOcurrence);
   console.log(gSCorers);
 
   // console.log(multipleOcurrence[0]);
@@ -638,4 +661,27 @@ for (const [key, val] of Object.entries(gSCorers)) {
 // } else {
 //   console.log(multipleOcurrence.push(game.scored[i]));
 //   return multipleOcurrence;
+// }
+
+for (const [key, val] of Object.entries(gSCorers)) {
+  let arr = [];
+  let multipleOcurrence = [];
+}
+
+function MultipleInstance() {}
+
+let cg = 1;
+
+cg ||= 0;
+
+console.log(cg);
+
+// let gh = [2, 4, 5, 6];
+// let add = 0;
+// for (let i = 0; i < bb.length; i++) {
+//   // const element = array[index];
+//   if (bb[add] === bb[i]) {
+//     console.log(bb[i]);
+//     add++;
+//   }
 // }
