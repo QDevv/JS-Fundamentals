@@ -630,10 +630,7 @@ for (const [key, val] of Object.entries(gSCorers)) {
       // console.log(game.scored);
       multipleKeys.push(game.scored[i]);
       console.log([multipleKeys]);
-    } else if (
-      game.scored.indexOf(game.scored[i + 1]) ===
-      game.scored.length - 1
-    ) {
+    } else if (game.scored.indexOf(game.scored[i]) === game.scored.length - 1) {
       counter++;
     }
     // count++;
@@ -676,12 +673,12 @@ cg ||= 0;
 
 console.log(cg);
 
-// let gh = [2, 4, 5, 6];
-// let add = 0;
-// for (let i = 0; i < bb.length; i++) {
-//   // const element = array[index];
-//   if (bb[add] === bb[i]) {
-//     console.log(bb[i]);
-//     add++;
-//   }
-// }
+let gh = [2, 4, 5, 6];
+let add = 0;
+for (let i = 0; i < bb.length; i++) {
+  // const element = array[index];
+  if (bb[add] === bb[i]) {
+    console.log(bb[i]);
+    add++;
+  }
+}
