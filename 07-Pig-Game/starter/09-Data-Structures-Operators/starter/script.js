@@ -718,4 +718,4 @@ console.log(orderSet);
 
 // SET are iterable
 
-// const (order of orderSet)
+for (const order of orderSet) console.log(order);
