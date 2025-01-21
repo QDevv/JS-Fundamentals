@@ -608,7 +608,7 @@ function str({ Lewandowski, gnarby, hummels }) {
 
 let gSCorers = str(game.scored);
 
-console.log(gSCorers);
+// console.log(gSCorers);
 
 for (const [key, val] of Object.entries(gSCorers)) {
   let arr = [];
@@ -620,17 +620,22 @@ for (const [key, val] of Object.entries(gSCorers)) {
 
     // console.log([i]);
 
-    console.log(counter);
+    // console.log(counter);
 
     // let add;
+    // console.log(game.scored.indexOf(game.scored[i]));
 
-    if (game.scored[(counter ||= 0)] === game.scored[i]) {
+    if (
+      game.scored[counter] === game.scored[i] &&
+      !multipleKeys.includes(game.scored[i])
+    ) {
       // let count;
       // console.log(arr)
       // console.log(game.scored);
       multipleKeys.push(game.scored[i]);
-      console.log([multipleKeys]);
-    } else if (game.scored.indexOf(game.scored[i]) === game.scored.length - 1) {
+      console.log(multipleKeys);
+    }
+    if (i === game.scored.length - 1) {
       counter++;
     }
     // count++;
@@ -675,10 +680,42 @@ console.log(cg);
 
 let gh = [2, 4, 5, 6];
 let add = 0;
-for (let i = 0; i < bb.length; i++) {
-  // const element = array[index];
-  if (bb[add] === bb[i]) {
-    console.log(bb[i]);
-    add++;
-  }
-}
+// for (let i = 0; i < bb.length; i++) {
+//   // const element = array[index];
+//   if (bb[add] === bb[i]) {
+//     console.log(bb[i]);
+//     add++;
+//   }
+// }
+
+// SETS //
+
+// A collection of unique values i.e that means sets doesnt have any duplicate
+// - sets can hold different data types
+
+const orderSet = new Set([
+  'pasta',
+  'pizza',
+  'pizza',
+  'rizotto',
+  'pasta',
+  'pizza',
+]);
+
+console.log(orderSet.size);
+
+console.log(orderSet);
+
+console.log(new Set('jonas'));
+
+console.log(orderSet.has('pasta'));
+console.log(orderSet.has('potato'));
+
+console.log(orderSet.add('bread'));
+orderSet.add('bread');
+orderSet.delete('pasta');
+console.log(orderSet);
+
+// SET are iterable
+
+// const (order of orderSet)
