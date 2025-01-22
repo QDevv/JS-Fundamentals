@@ -719,3 +719,86 @@ console.log(orderSet);
 // SET are iterable
 
 for (const order of orderSet) console.log(order);
+
+const staff = ['accountant', 'Engineer', 'HR', 'HR'];
+
+const staffunique = [...new Set(staff)];
+
+console.log(staffunique);
+console.log(new Set(['a', 'b', 'r', 'q', 'b']).size);
+
+console.log(new Set('kuddus').size);
+
+// MAP //
+
+// this is a javascript data structure that map values to keys
+
+// Difference btw map and obj; keys in map can be any type of data(array, obj or other maps but in obj keys are string)
+
+const rest = new Map();
+rest.set('name', 'classico italiano');
+rest.set(1, 'foggia', 'Italy');
+rest.set(true, 'we are open');
+rest.set(false, 'we are close');
+console.log(
+  rest
+    .set('age', 29)
+    .set('job', 'software Dev')
+    .set('open', 12)
+    .set('close', 23)
+);
+
+console.log(rest.get(1));
+
+console.log();
+
+const time = 2;
+
+let available = rest.get(time >= rest.get('open') && time < rest.get('close'));
+
+console.log(available);
+
+console.log(rest.has('age'));
+
+console.log(rest.delete(true));
+console.log(rest.size);
+console.log(rest.clear());
+console.log(rest);
+
+const arr = [1, 2];
+
+rest.set(arr, 'test');
+rest.set(document.querySelector('h1'), 'Heading');
+
+console.log(rest);
+console.log(rest.get(arr));
+
+const question1 = new Map([
+  ['question', 'what is the best programming language'],
+  [1, 'c'],
+  [2, 'Java'],
+  [3, 'javaScript'],
+  ['correct', 3],
+  [true, 'correct!'],
+  [false, 'try again'],
+]);
+
+console.log(question1);
+console.log(Object.entries(openingHours));
+
+let newHours = new Map(Object.entries(openingHours));
+
+console.log(newHours);
+
+for (const [key, val] of question1) {
+  typeof key === 'number' ? console.log(`answer ${key} ${val}`) : '';
+}
+
+// const answer = Number(prompt('Your answer'));
+// console.log(answer);
+
+// console.log(question1.get(answer === question1.get('correct')));
+
+// Convert MAP TO ARRAY
+
+console.log(...question1);
