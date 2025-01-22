@@ -802,3 +802,53 @@ for (const [key, val] of question1) {
 // Convert MAP TO ARRAY
 
 console.log(...question1);
+
+// Coding Challenge //
+
+// const gameEvents = new Map([]);
+const gameEvents = new Map([
+  [17, '⚽️ GOAL'],
+  [36, '🔁 Substitution'],
+  [47, '⚽️ GOAL'],
+  [61, '🔁 Substitution'],
+  [64, '🔶 Yellow card'],
+  [69, '🔴 Red card'],
+  [70, '🔁 Substitution'],
+  [72, '🔁 Substitution'],
+  [76, '⚽️ GOAL'],
+  [80, '⚽️ GOAL'],
+  [92, '🔶 Yellow card'],
+]);
+let eventArr = [];
+let setEvent = new Set([]);
+let avgg = 0;
+let num = [];
+let numAvg = [];
+
+for (const [keys, val] of gameEvents) {
+  num.push(keys);
+
+  for (let i = 0; i < num.length; i++) {
+    // numAvg.push(num[i] - num[i + 1]);
+    // console.log(num[i]);
+    // console.log(keys);
+    // const element = array[i];
+  }
+  console.log(numAvg);
+  // num.push(keys);
+  // console.log(num);
+
+  // eventArr.push(val);
+  // console.log(eventArr);
+
+  setEvent.add(val);
+  // console.log(setEvent);
+  eventArr = [...setEvent];
+  // console.log(eventArr);
+}
+// const events = [...gameEvents.get()];
+console.log(eventArr);
+// console.log(events);
+
+gameEvents.delete(64);
+console.log(gameEvents);
