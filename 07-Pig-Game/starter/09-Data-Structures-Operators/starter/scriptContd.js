@@ -76,4 +76,9 @@ const sum = numAvg.reduce((accumulator, currentVal) => {
 
 console.log(sum / numAvg.length);
 
+const airline = 'TAP Air Portugal';
+console.log(airline.slice(4));
+console.log(airline.slice(4, 7));
+console.log(airline.slice(0, airline.indexOf(' ')));
+
 // console.log(NaN || 8);
