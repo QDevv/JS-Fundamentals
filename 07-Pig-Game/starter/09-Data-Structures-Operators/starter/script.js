@@ -828,12 +828,11 @@ let numAvg = [];
 for (const [keys, val] of gameEvents) {
   num.push(keys);
 
-  for (let i = 0; i < num.length; i++) {
-    // numAvg.push(num[i] - num[i + 1]);
-    // console.log(num[i]);
-    // console.log(keys);
-    // const element = array[i];
-  }
+  // numAvg.push(num[i] - num[i + 1]);
+  // console.log(num[i]);
+  // console.log(keys);
+  // const element = array[i];
+
   console.log(numAvg);
   // num.push(keys);
   // console.log(num);
@@ -852,3 +851,16 @@ console.log(eventArr);
 
 gameEvents.delete(64);
 console.log(gameEvents);
+
+for (let i = 0; i < num.length; i++) {
+  numAvg = num.push(num[0]);
+
+  console.log(numAvg);
+
+  if (num.length !== 0) {
+    // numAvg.push(num[i + 1] - [i]);
+    console.log(num[i + 1] - num[i]);
+    // num.shift();
+    console.log(numAvg);
+  }
+}
