@@ -216,3 +216,61 @@ function planeWaiting(n) {
 planeWaiting(7);
 planeWaiting(4);
 planeWaiting(2);
+
+const textArea = document.createElement('textarea');
+
+document.body.append(textArea);
+
+const textA = document.querySelector('textarea');
+
+console.log(textA.value);
+
+textA.placeholder = 'enter';
+const button = document.createElement('button');
+document.body.append(button);
+
+const btn = document.querySelector('button');
+console.log(btn);
+
+function btnn(params) {
+  console.log(`i'm working`);
+}
+
+console.log();
+
+const text = document.querySelector('textarea').value;
+
+console.log(textA);
+let rtxt = textA.value;
+
+function camelCase() {
+  const wordArr = textA.value.split('\n');
+
+  console.log(wordArr);
+
+  for (let i = 0; i < wordArr.length; i++) {
+    let res = wordArr[i].trim().toLowerCase();
+    // console.log(res);
+    // console.log(textA.value);
+    let ccv =
+      res.slice(0, wordArr[i].indexOf('_')) +
+      res.toUpperCase()[wordArr[i].indexOf('_') + 1] +
+      res.slice(wordArr[i].indexOf('_') + 2) +
+      `  ${'@'.repeat([i + 1])}`;
+    // res.toUpperCase()[input.toLowerCase()[]]
+    console.log(ccv);
+  }
+  // console.log(wordArr);
+
+  // console.log('yyyy');
+  // console.log(res);
+  // console.log(input.indexOf('_'));
+}
+
+btn.addEventListener('click', camelCase);
+
+// underscore_case
+//  first_name
+// Some_Variable
+//   calculate_AGE
+// delayed_departure
