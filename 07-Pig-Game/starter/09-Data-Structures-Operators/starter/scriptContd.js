@@ -267,10 +267,69 @@ function camelCase() {
   // console.log(input.indexOf('_'));
 }
 
-btn.addEventListener('click', camelCase);
+// btn.addEventListener('click', camelCase);
 
 // underscore_case
 //  first_name
 // Some_Variable
 //   calculate_AGE
 // delayed_departure
+
+function revertToCamelCase() {
+  let textArea = document.querySelector('textarea').value;
+  let columnize = textArea.split('\n');
+
+  for (const [i, column] of Object.entries(columnize)) {
+    const [first, second] = column.toLowerCase().trim().split('_');
+
+    let output = `${first}${second.replace(
+      second[0],
+      second[0].toUpperCase()
+    )}`;
+    console.log(`${output.padEnd(20)}${'%'.repeat(i + 1)}`);
+  }
+}
+
+btn.addEventListener('click', revertToCamelCase);
+
+const flights =
+  '_Delayed_Departure;fao93766109;txl2133758440;11:25+_Arrival;bru0943384722;fao93766109;11:45+_Delayed_Arrival;hel7439299980;fao93766109;12:05+_Departure;fao93766109;lis2323639855;12:30';
+
+for (const flight of flights.split('+')) {
+  let semiColumnSplitting = flight.split(';');
+  // console.log(semiColumnSplitting);
+  const [status, from, to, time] = semiColumnSplitting;
+
+  // console.log();
+  // status.includes('Delayed') ? `!! ${status}` : `${status}`;
+
+  // console.log(status);
+
+  // console.log();
+
+  // console.log(to.slice(0, 3));
+  // console.log(status);
+
+  let reslt = `${status.includes('_Delayed') ? '!!' : ''}${status
+    .split('_')
+    .join(' ')} from ${from.slice(0, 3)} to ${to.slice(0, 3)}  (${time.replace(
+    ':',
+    'h'
+  )})`;
+
+  // console.log(reslt);
+
+  // reslt.includes('Delayed')
+  //   ? console.log(`!! ${reslt.padStart(50)}`)
+  //   : console.log(reslt.padStart(50));
+
+  // console.log(reslt);
+
+  console.log(reslt.padStart(50));
+  // console.log(
+  //   `${status.split('_').join(' ')} from ${from.slice(0, 3)} to ${to.slice(
+  //     0,
+  //     3
+  //   )} (${time.replace(':', 'hr')})`
+  // );
+}
