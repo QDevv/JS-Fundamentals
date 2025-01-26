@@ -98,3 +98,14 @@ document.body.addEventListener('click', high5);
 ['john', 'musa', 'abel'].forEach(high5);
 // using callbacks is very imortant
 // it helps with abstraction(hiding major details of some code implementation. instead of the HO to perform all the function, it delegates it to other ReadableByteStreamController(callback func))
+
+// function returning function
+const greeting = function (greeting) {
+  return function nestedFunc(name) {
+    console.log(`${greeting} ${name}`);
+  };
+};
+
+let greeter = greeting('hey');
+
+greeter('jonas');
