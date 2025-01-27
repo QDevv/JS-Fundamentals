@@ -90,7 +90,7 @@ transformer('javaScript is the best', upperFirstWord);
 transformer('javaScript is the best', oneWord);
 
 const high5 = () => {
-  console.log('i am a callBack');
+  // console.log('i am a callBack');
 };
 
 document.body.addEventListener('click', high5);
@@ -100,12 +100,93 @@ document.body.addEventListener('click', high5);
 // it helps with abstraction(hiding major details of some code implementation. instead of the HO to perform all the function, it delegates it to other ReadableByteStreamController(callback func))
 
 // function returning function
-const greeting = function (greeting) {
+const greet = function (greeting) {
   return function nestedFunc(name) {
     console.log(`${greeting} ${name}`);
   };
 };
 
-let greeter = greeting('hey');
+let greeter = greet('hey');
 
 greeter('jonas');
+
+greet('hey')('evans');
+
+const greet1 = greeting1 => name1 => console.log(`${greeting1} ${name1}`);
+
+greet1('hello')('Talha');
+
+const lufthansa = {
+  Airline: 'Lufthansa',
+  Iatacode: 'LH',
+
+  bookings: [],
+  book(flightNum, name) {
+    console.log(
+      `${name} booked a seat on ${this.Airline} flight ${this.Iatacode}${flightNum}`
+    );
+    this.bookings.push({ flight: `${this.Iatacode}${flightNum}`, name });
+  },
+};
+
+// CALL //
+
+lufthansa.book('320', 'kudus');
+const eurowings = {
+  Airline: 'eurowings',
+  Iatacode: 'EW',
+  bookings: [],
+};
+
+lufthansa.book.call(eurowings, 23, 'tola');
+console.log(eurowings);
+
+lufthansa.book.call(lufthansa, 212, 'bimpe');
+console.log(lufthansa);
+const swiss = {
+  Airline: 'swiss',
+  Iatacode: 'LX',
+  bookings: [],
+};
+
+lufthansa.book.call(swiss, 454, 'Fiona');
+console.log(swiss);
+
+// APPLY //
+const flightData = [583, 'kudus'];
+lufthansa.book.apply(swiss, flightData);
+
+const flightData2 = [583, 'Habib'];
+
+lufthansa.book.call(swiss, ...flightData2);
+
+// BIND
+
+const bookEw = lufthansa.book.bind(eurowings);
+
+bookEw(765, 'francis');
+console.log(eurowings);
+
+const bookLH = lufthansa.book.bind(lufthansa);
+
+const bookLX = lufthansa.book.bind(swiss);
+
+const bookEw23 = lufthansa.book.bind(eurowings, 23); //partial application(a part of the original has already been applied/set)
+
+// THIS KEYWORDS IS ALWAYS ATTACHED TO THE OBJECT CALLING IT
+
+lufthansa.planes = 300;
+lufthansa.buyplanes = function () {
+  // console.log(this);
+  // console.log(this.planes);
+  lufthansa.buyplanes.bind(document.querySelector('.buy'));
+  this.planes++;
+
+  console.log(this.planes);
+};
+
+// lufthansa.buyplanes();
+
+document.querySelector('.buy').addEventListener('click', lufthansa.buyplanes);
+
+bookEw23('tega');
