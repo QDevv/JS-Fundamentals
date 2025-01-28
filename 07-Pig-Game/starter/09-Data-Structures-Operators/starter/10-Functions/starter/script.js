@@ -152,6 +152,8 @@ const swiss = {
 lufthansa.book.call(swiss, 454, 'Fiona');
 console.log(swiss);
 
+// lufthansa.book.call({ Airline: });
+
 // APPLY //
 const flightData = [583, 'kudus'];
 lufthansa.book.apply(swiss, flightData);
@@ -168,10 +170,13 @@ bookEw(765, 'francis');
 console.log(eurowings);
 
 const bookLH = lufthansa.book.bind(lufthansa);
+bookLH(454, 'jide');
 
 const bookLX = lufthansa.book.bind(swiss);
 
 const bookEw23 = lufthansa.book.bind(eurowings, 23); //partial application(a part of the original has already been applied/set)
+
+// DIFFERENCE BTW BIND AND CALL: CALL CALLS THE METHOD IMMEDIATELY IT IS USED, BUT BIND DOES NOT IMMEDIATELY CALLS THE FUNCTION, IT RETURNS A NEW FUNCTION WHERE THE THIS KEYWORD IS BOUND
 
 // THIS KEYWORDS IS ALWAYS ATTACHED TO THE OBJECT CALLING IT
 
@@ -217,3 +222,105 @@ let addVATrate = addTax2(0.2);
 
 let addvatt = addVATrate(100);
 console.log(addvatt);
+
+// CHALLENGE
+
+const POLL = {
+  question: 'What is your favourite programming language?',
+  options: ['0: JavaScript', '1: Python', '2: Rust', '3: C++'],
+
+  answers: new Array(4).fill(0),
+
+  registerNewAnswer() {
+    // console.log(...this.options);
+    let output = Number(
+      prompt(`${[this.question, ...this.options].join('\n')}`)
+    );
+    // output ??= output;
+    // console.log(output ?? output < this.answers.length);
+    output === 0 || (output && output) < this.answers.length
+      ? this.answers[output]++
+      : console.log('Pls choose one of the options below');
+    // console.log(this.answers);
+
+    this.displayResults('string');
+    this.displayResults();
+  },
+  displayResults(type = 'array') {
+    type === 'array'
+      ? console.log(this.answers)
+      : console.log(`The poll results: ${this.answers.join(' ')}`);
+  },
+};
+
+// POLL.registerNewAnswer();
+
+document
+  .querySelector('.poll')
+  .addEventListener('click', POLL.registerNewAnswer.bind(POLL));
+
+POLL.displayResults.call({ answers: [5, 2, 3] });
+// console.log(POLL);
+
+// newPOLL([5, 2, 3]);
+// newPOLL([5, 1, 24, 86]);
+
+// IMMEDIATELY INVOKED FUNCTION EXPRESSION
+function runOnce() {
+  console.log('i will only run once');
+}
+/////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////
+
+// (function () {
+//   console.log('this function will only run once');
+// })();
+////////
+/////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////
+
+// IIEF
+// () => console.log('this function will only run once as well')();
+
+{
+  const isPrivate = 33;
+}
+
+// console.log(isPrivate
+
+// CLOSURES///
+
+// ANY FUNCTION WILL HAVE ACCESS TO THE VARIABLE ENVIRONMENT OF THE EXECUTION CONTEXT IN WHICH IT WAS CREATED
+// A FUNCTION DOES NOT LOOSE CONNECTION WITH THE VARIABLES THAT EXISTS AT IT BIRTHPLACE(LIKE A PERSON DOES NOT LOOS CONNECTION TO THEIR HOMETOWN)
+
+// A CLOSURE GIVES A FUNCTION ACCESS TO ALL VARIABLES OF ITS PARENT FUNCTION, EVEN AFTER THAT PARENT FUNCTION HAS RETURNED. THE FUNCTION KEEPS A REFERENCE TO ITS OUTER SCOPE WHICH PRESERVES THE SCOPE CHAIN THROUGHOUT TIME
+
+// A CLOSURE IS LIKE A BACKPACK THAT A FUNCTION CARRIES AROUND WHEREVER IT GOES. THIS BACKPACK HAS ALL THE VARIABLES THAT WERE PRESENT IN THE ENVIRONMENT WHERE THE FUNCTION WAS CREATED
+
+// QQQ: DIFFERENCE BTW EXECUTION CONTEXT, VARIABLE ENVIRONMENT, SCOPE
+
+// A CLOSURE IS NOT A JS OBJECT
+// CLOSED-OVER VARIABLES CANT BE ACCESSED
+
+const securebooking = function () {
+  let passengerCount = 0;
+
+  return function () {
+    passengerCount++;
+    console.log(`${passengerCount} passengers`);
+  };
+};
+
+const booker = securebooking();
+
+booker();
+booker();
+
+console.dir(booker); //this shows the varibles in the execution context booker func was created
+
+// closure is the VE OF securebooking
+
+// double brackets means an internal property which we cannot access with code
