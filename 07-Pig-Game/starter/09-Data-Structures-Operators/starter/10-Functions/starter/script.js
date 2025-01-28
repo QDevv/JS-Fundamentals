@@ -176,17 +176,44 @@ const bookEw23 = lufthansa.book.bind(eurowings, 23); //partial application(a par
 // THIS KEYWORDS IS ALWAYS ATTACHED TO THE OBJECT CALLING IT
 
 lufthansa.planes = 300;
+
 lufthansa.buyplanes = function () {
-  // console.log(this);
+  console.log(this);
   // console.log(this.planes);
-  lufthansa.buyplanes.bind(document.querySelector('.buy'));
+  // lufthansa.buyplanes.bind(document.querySelector('.buy'));
+
   this.planes++;
 
   console.log(this.planes);
 };
 
+// buyP();
+
 // lufthansa.buyplanes();
 
-document.querySelector('.buy').addEventListener('click', lufthansa.buyplanes);
+document
+  .querySelector('.buy')
+  .addEventListener('click', lufthansa.buyplanes.bind(lufthansa));
 
 bookEw23('tega');
+
+const addTax = (rate, value) => value + value * rate;
+console.log(addTax(0.1, 200));
+console.log();
+
+const addVAT = addTax.bind(null, 0.23);
+
+console.log(addVAT(100));
+
+// BIND PRODUCES A NEW FUNCTION
+
+const addTax2 = function (rate) {
+  return function addVAT2(value) {
+    return value + value * rate;
+  };
+};
+
+let addVATrate = addTax2(0.2);
+
+let addvatt = addVATrate(100);
+console.log(addvatt);
