@@ -174,7 +174,10 @@ bookLH(454, 'jide');
 
 const bookLX = lufthansa.book.bind(swiss);
 
-const bookEw23 = lufthansa.book.bind(eurowings, 23); //partial application(a part of the original has already been applied/set)
+const bookEw23 = lufthansa.book.bind(eurowings, 23);
+bookEw23('sodiq');
+bookEw23('sola');
+//partial application(a part of the original has already been applied/set)
 
 // DIFFERENCE BTW BIND AND CALL: CALL CALLS THE METHOD IMMEDIATELY IT IS USED, BUT BIND DOES NOT IMMEDIATELY CALLS THE FUNCTION, IT RETURNS A NEW FUNCTION WHERE THE THIS KEYWORD IS BOUND
 
@@ -204,7 +207,7 @@ bookEw23('tega');
 
 const addTax = (rate, value) => value + value * rate;
 console.log(addTax(0.1, 200));
-console.log();
+// console.log();
 
 const addVAT = addTax.bind(null, 0.23);
 
@@ -324,3 +327,58 @@ console.dir(booker); //this shows the varibles in the execution context booker f
 // closure is the VE OF securebooking
 
 // double brackets means an internal property which we cannot access with code
+
+// We dont need to return a function from another function in order to create a closure
+
+let f;
+const g = function () {
+  const a = 23;
+  f = function () {
+    console.log(a * 2);
+  };
+};
+
+const h = function () {
+  const b = 300;
+
+  f = function () {
+    console.log(b * 2);
+  };
+};
+
+g();
+f();
+console.dir(f);
+
+// //////
+h();
+f();
+
+console.dir(f);
+
+//The reassigned F function was still able to access the the variables in g's excecution context, even when g has been executed and F was created in the global scope
+
+const boardPassengers = function (n, wait) {
+  let perGroup = n / 3;
+  setTimeout(function () {
+    console.log(`we are now boarding all ${n} passengers`);
+    console.log(`There are 3 groups, each with ${perGroup} passengers`);
+  }, wait * 1000);
+  console.log(`will start boarding in ${wait} seconds`);
+};
+
+boardPassengers(180, 3);
+
+// CLOSURE HAS PRIORITY OVER THE SCOPE CHAIN
+
+// CHALLENGE ON CLOSURE
+
+(function () {
+  const header = document.querySelector('h1');
+  header.style.color = 'red';
+  
+
+  document.querySelector('body').addEventListener('click', function () {
+  header.style.color = 'blue';
+})();
+
