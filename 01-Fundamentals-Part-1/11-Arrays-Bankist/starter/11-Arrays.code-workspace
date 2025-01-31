@@ -1,0 +1,15 @@
+{
+  "folders": [
+	{
+		"name": "fundamentals of 01",
+		"path": "../../../../fundamentals of 01"
+	},
+	{
+		"name": "11-Arrays-Bankist",
+		"path": ".."
+	}
+],
+  "settings": {
+    "liveServer.settings.multiRootWorkspaceName": "fundamentals of 01"
+  }
+}
