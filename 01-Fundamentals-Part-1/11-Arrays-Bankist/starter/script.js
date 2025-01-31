@@ -65,12 +65,6 @@ const inputClosePin = document.querySelector('.form__input--pin');
 /////////////////////////////////////////////////
 // LECTURES
 
-const currencies = new Map([
-  ['USD', 'United States dollar'],
-  ['EUR', 'Euro'],
-  ['GBP', 'Pound sterling'],
-]);
-
 // const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 /////////////////////////////////////////////////
@@ -128,14 +122,13 @@ console.log(concatt.join('_'));
 
 // console.log('jonas'.at(-1));
 
-// FOREACH METHOD
+// FOREACH METHOD - this mutates the original array
 // const account1 = {
 //   owner: 'Jonas Schmedtmann',
 //   movements: [200, 450, -400, 3000, -650, -130, 70, 1300],
 //   interestRate: 1.2, // %
 //   pin: 1111,
 // };
-
 const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 for (const movement of movements) {
@@ -153,3 +146,96 @@ movements.forEach(function (movement, i, ARR) {
 });
 
 // THE CALLBCAK FUNCTION HERE TELLS THE HIGHER ORDER FUNCTION WHAT TO DO
+
+const currencies = new Map([
+  ['USD', 'United States dollar'],
+  ['EUR', 'Euro'],
+  ['GBP', 'Pound sterling'],
+]);
+currencies.forEach(function (key, value, arr) {
+  console.log(`${key}: ${value}`);
+});
+
+const currency2 = new Set(['USD', 'GBP', 'EURO']);
+
+currency2.forEach(function (key, value) {
+  console.log(`${key}: ${value}`);
+});
+
+function displayMovement(account) {
+  containerMovements.innerHTML = '';
+  account.forEach(function (mov, i, arr) {
+    let TransactionType = mov > 0 ? 'deposit' : 'withdrawal'; ////////////////////
+    //////////l
+    console.log(TransactionType);
+
+    let html = `<div class="movements__row">
+          <div class="movements__type movements__type--${TransactionType}">${
+      i + 1
+    } ${TransactionType}</div>
+          
+          <div class="movements__value">${mov}</div>
+        </div>
+    `;
+    containerMovements.insertAdjacentHTML('afterbegin', html);
+  });
+  // console.log(containerMovements.innerHTML);
+}
+
+displayMovement(account1.movements);
+
+// MAP - CREATES A NEW ARRAY
+// FILTER - RETURNS A NEW ARRAY CONATINING ELEMENTS THAT PASSED A CERTAIN CONDITION
+// REDUCE BOILS DOWN ('REDUCE') ALL THE ELEMENT DOWN TO A SINGLE DIGIT(E.G ADDING ALL ELEMENT TOGETHER )
+
+let euroUsd = 1.1;
+const newMovement = movements.map(movement => euroUsd * movement.toFixed(2));
+
+console.log(newMovement);
+console.log(movements);
+
+const movementsDescriptions = movements.map(
+  (mov, i, arr) =>
+    `movement ${i + 1}: you ${mov > 0 ? 'deposit' : 'withdraw'} ${Math.abs(
+      mov
+    )}`
+);
+console.log(movementsDescriptions.join('\n'));
+
+// function createUserName(user) {
+//   const userName = user
+//     .split(' ')
+//     .map(name => name[0])
+//     .join('');
+//   return userName;
+// }
+// const user = 'Martin Luther King';
+
+// console.log(createUserName('Martin Luther King'));
+
+// console.log(userName);
+
+function createUserName(accs) {
+  accs.forEach(acc => {
+    acc.username = acc.owner
+      .toLowerCase()
+      .split(' ')
+      .map(name => name[0])
+      .join('');
+  });
+}
+// NO NEED TO RETURN BECAUSE WE ARE NOT CREATING A NEW VALUE. WE ARE JUST ALTERING AN EXISTING VALUE
+
+createUserName(accounts);
+
+console.log(accounts);
+
+const deposits = movements.filter(move => {
+  return move > 0;
+});
+
+console.log(deposits);
+
+const withdrawal = movements.filter(move => move < 0);
+
+console.log(withdrawal);
