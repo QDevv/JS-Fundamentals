@@ -174,7 +174,7 @@ function displayMovement(account) {
       i + 1
     } ${TransactionType}</div>
           
-          <div class="movements__value">${mov}</div>
+          <div class="movements__value">€${mov}</div>
         </div>
     `;
     containerMovements.insertAdjacentHTML('afterbegin', html);
@@ -248,7 +248,7 @@ console.log(balance);
 
 const calcBalance = function (mov) {
   const sumBalance = mov.reduce((acc, curr) => acc + curr);
-  labelBalance.textContent = `${sumBalance} EUR`;
+  labelBalance.textContent = `€${sumBalance}`;
 };
 
 calcBalance(movements);
@@ -283,3 +283,35 @@ console.log(calcAge([5, 2, 4, 1, 15, 8, 3]));
 console.log(calcAge([16, 6, 10, 5, 6, 1, 4]));
 
 const euroUsd2 = 1.2;
+let totalDeposit = movements
+  .filter(mov => mov > 0)
+  .map(mov => mov * euroUsd2)
+  .reduce((acc, mov) => acc + mov, 0);
+
+console.log(Math.trunc(totalDeposit));
+
+function calcDisplaySummary(move) {
+  const income = move.filter(mov => mov > 0).reduce((acc, mov) => acc + mov);
+
+  labelSumIn.textContent = `€${Math.trunc(income)}`;
+
+  const outgoing = move.filter(mov => mov < 0).reduce((acc, mov) => acc + mov);
+
+  labelSumOut.textContent = `€${Math.abs(Math.trunc(outgoing))}`;
+
+  const interest = move
+    .filter(mov => mov > 0)
+    .map(mov => mov * 0.012)
+    .filter(int => int > 1)
+    .reduce((acc, mov) => acc + mov);
+
+  labelSumInterest.textContent = `€${interest}`;
+
+  console.log(interest);
+}
+
+calcDisplaySummary(account1.movements);
+
+function outgoingSummary(move) {}
+
+outgoingSummary(account1.movements);
