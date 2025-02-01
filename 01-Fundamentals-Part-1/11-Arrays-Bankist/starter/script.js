@@ -239,3 +239,47 @@ console.log(deposits);
 const withdrawal = movements.filter(move => move < 0);
 
 console.log(withdrawal);
+
+// REDUCE
+
+const balance = movements.reduce((acc, curr) => acc + curr);
+
+console.log(balance);
+
+const calcBalance = function (mov) {
+  const sumBalance = mov.reduce((acc, curr) => acc + curr);
+  labelBalance.textContent = `${sumBalance} EUR`;
+};
+
+calcBalance(movements);
+
+// let accArr = [];
+const getMax = movements.reduce((acc, curr) => {
+  if (acc > curr) return acc;
+  else return curr;
+}, movements[0]);
+
+console.log(getMax);
+
+function calcAge(ageArr) {
+  const humanAge = ageArr.map((age, i, arr) => {
+    if (age <= 2) return age * 2;
+    else return 16 + age * 4;
+  });
+  console.log(humanAge);
+
+  const matureDodgs = humanAge.filter((age, i) => {
+    return age >= 18;
+  });
+  console.log(matureDodgs);
+
+  const matureDogsAvgAge = matureDodgs.reduce((acc, curr) => {
+    return acc + curr;
+  });
+  return matureDogsAvgAge / matureDodgs.length;
+}
+
+console.log(calcAge([5, 2, 4, 1, 15, 8, 3]));
+console.log(calcAge([16, 6, 10, 5, 6, 1, 4]));
+
+const euroUsd2 = 1.2;

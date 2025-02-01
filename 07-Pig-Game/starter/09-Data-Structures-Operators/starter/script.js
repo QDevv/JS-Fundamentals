@@ -314,7 +314,6 @@ rest2.numGuests = 11;
 console.log(rest2);
 rest1.numGuests ||= 15;
 rest2.numGuests = rest2.numGuests || 15;
-
 console.log(rest1);
 
 // OR ASSIGNMENT OPERATOR
