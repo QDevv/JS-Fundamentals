@@ -276,6 +276,8 @@ function calcAge(ageArr) {
   const matureDogsAvgAge = matureDodgs.reduce((acc, curr) => {
     return acc + curr;
   });
+  console.log(matureDogsAvgAge);
+
   return matureDogsAvgAge / matureDodgs.length;
 }
 
@@ -315,3 +317,14 @@ calcDisplaySummary(account1.movements);
 function outgoingSummary(move) {}
 
 outgoingSummary(account1.movements);
+
+const humanAge2 = ageArr =>
+  ageArr
+    .map(age => (age <= 2 ? age * 2 : 16 + age * 4))
+    .filter(age => age >= 18)
+
+    .reduce((acc, age, i, arr) => acc + age / arr.length, 0);
+
+console.log(humanAge2([5, 2, 4, 1, 15, 8, 3]));
+
+console.log(humanAge2([16, 6, 10, 5, 6, 1, 4]));
