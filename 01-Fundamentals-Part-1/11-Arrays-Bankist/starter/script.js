@@ -328,3 +328,15 @@ const humanAge2 = ageArr =>
 console.log(humanAge2([5, 2, 4, 1, 15, 8, 3]));
 
 console.log(humanAge2([16, 6, 10, 5, 6, 1, 4]));
+
+const gr = movements.find(mov => mov < 0);
+
+console.log(gr);
+
+const account = accounts.find(acc => acc.owner === 'Jessica Davis');
+
+console.log(account.pin);
+
+for (const acc of accounts) {
+  acc.owner === 'Jessica Davis' ? console.log(acc) : '';
+}
