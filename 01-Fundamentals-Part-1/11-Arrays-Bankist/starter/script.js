@@ -182,8 +182,6 @@ function displayMovement(account) {
   // console.log(containerMovements.innerHTML);
 }
 
-displayMovement(account1.movements);
-
 // MAP - CREATES A NEW ARRAY
 // FILTER - RETURNS A NEW ARRAY CONATINING ELEMENTS THAT PASSED A CERTAIN CONDITION
 // REDUCE BOILS DOWN ('REDUCE') ALL THE ELEMENT DOWN TO A SINGLE DIGIT(E.G ADDING ALL ELEMENT TOGETHER )
@@ -246,12 +244,11 @@ const balance = movements.reduce((acc, curr) => acc + curr);
 
 console.log(balance);
 
-const calcBalance = function (mov) {
-  const sumBalance = mov.reduce((acc, curr) => acc + curr);
-  labelBalance.textContent = `€${sumBalance}`;
+const calcBalance = function (acc) {
+  const sumBalance = acc.movements.reduce((acc, curr) => acc + curr);
+  acc.balance = sumBalance;
+  labelBalance.textContent = `€${acc.balance}`;
 };
-
-calcBalance(movements);
 
 // let accArr = [];
 const getMax = movements.reduce((acc, curr) => {
@@ -340,3 +337,51 @@ console.log(account.pin);
 for (const acc of accounts) {
   acc.owner === 'Jessica Davis' ? console.log(acc) : '';
 }
+let currentAccount;
+// BANKIST: CHECK LOGIN //
+btnLogin.addEventListener('click', function (e) {
+  e.preventDefault();
+  currentAccount = accounts.find(
+    acc => acc.username === inputLoginUsername.value
+  );
+
+  console.log(currentAccount);
+
+  if (currentAccount?.pin === Number(inputLoginPin.value)) {
+    // Display UI & Message //
+    labelWelcome.textContent = `Welcome back,${
+      currentAccount.owner.split(' ')[0]
+    }`;
+    containerApp.style.opacity = 100;
+
+    inputLoginPin.value = inputLoginUsername.value = '';
+    inputLoginPin.blur();
+
+    //Display Movements //
+    displayMovement(currentAccount.movements);
+
+    //Display Balance //
+    calcBalance(currentAccount);
+
+    //Display Summary//
+    calcDisplaySummary(currentAccount.movements);
+  }
+});
+
+btnTransfer.addEventListener('click', function (e) {
+  e.preventDefault();
+  const amount = Number(inputTransferAmount.value);
+  const receiverAcc = accounts.find(
+    acc => acc.username === inputTransferTo.value
+  );
+  console.log(amount, receiverAcc);
+
+  if (
+    amount > 0 &&
+    receiverAcc &&
+    currentAccount.balance >= amount &&
+    receiverAcc?.username !== currentAccount.username
+  ) {
+    console.log(currentAccount.movements.push());
+  }
+});
