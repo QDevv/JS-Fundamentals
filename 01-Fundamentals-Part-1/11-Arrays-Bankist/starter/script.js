@@ -502,3 +502,22 @@ movements.sort((a, b) => a - b);
 //   if (b > a) return 1; //SWITCH
 // });
 movements.sort((a, b) => b - a);
+
+// MORE WAYS OF CREATING AND FILLING ARRAYS
+
+const arr9 = [1, 2, 3, 4, 5, 6];
+
+console.log(new Array(1, 2, 3, 4, 5, 6));
+
+// EMPTY ARRAY + FILL METHOD
+const x = new Array(1, 2, 3, 4, 5);
+
+x.fill(9, 1, 3);
+console.log(x);
+
+x.fill(1);
+
+console.log(x);
+
+const arrr4 = Array.from({ length: 5 }, () => 3);
+console.log(arrr4);
