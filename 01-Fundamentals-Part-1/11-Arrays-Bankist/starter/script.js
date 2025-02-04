@@ -129,6 +129,14 @@ console.log(concatt.join('_'));
 //   interestRate: 1.2, // %
 //   pin: 1111,
 // };
+let sorted = false;
+btnSort.addEventListener('click', function (e) {
+  e.preventDefault();
+  displayMovement(currentAccount.movements, !sorted);
+  sorted = !sorted;
+  console.log(sorted);
+});
+
 const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 for (const movement of movements) {
@@ -162,9 +170,11 @@ currency2.forEach(function (key, value) {
   console.log(`${key}: ${value}`);
 });
 
-function displayMovement(account) {
+function displayMovement(account, sort = false) {
   containerMovements.innerHTML = '';
-  account.forEach(function (mov, i, arr) {
+
+  const movs = sort ? movements.slice().sort((a, b) => a - b) : movements;
+  movs.forEach(function (mov, i, arr) {
     let TransactionType = mov > 0 ? 'deposit' : 'withdrawal'; ////////////////////
     //////////l
     console.log(TransactionType);
@@ -224,6 +234,16 @@ function createUserName(accs) {
 }
 // NO NEED TO RETURN BECAUSE WE ARE NOT CREATING A NEW VALUE. WE ARE JUST ALTERING AN EXISTING VALUE
 
+function UpdateUI(acc) {
+  displayMovement(acc.movements);
+
+  //Display Balance //
+  calcBalance(acc);
+
+  //Display Summary//
+  calcDisplaySummary(acc.movements);
+}
+
 createUserName(accounts);
 
 console.log(accounts);
@@ -258,28 +278,28 @@ const getMax = movements.reduce((acc, curr) => {
 
 console.log(getMax);
 
-function calcAge(ageArr) {
-  const humanAge = ageArr.map((age, i, arr) => {
-    if (age <= 2) return age * 2;
-    else return 16 + age * 4;
-  });
-  console.log(humanAge);
+// function calcAge(ageArr) {
+//   const humanAge = ageArr.map((age, i, arr) => {
+//     if (age <= 2) return age * 2;
+//     else return 16 + age * 4;
+//   });
+//   console.log(humanAge);
 
-  const matureDodgs = humanAge.filter((age, i) => {
-    return age >= 18;
-  });
-  console.log(matureDodgs);
+//   const matureDodgs = humanAge.filter((age, i) => {
+//     return age >= 18;
+//   });
+//   console.log(matureDodgs);
 
-  const matureDogsAvgAge = matureDodgs.reduce((acc, curr) => {
-    return acc + curr;
-  });
-  console.log(matureDogsAvgAge);
+//   const matureDogsAvgAge = matureDodgs.reduce((acc, curr) => {
+//     return acc + curr;
+//   });
+//   console.log(matureDogsAvgAge);
 
-  return matureDogsAvgAge / matureDodgs.length;
-}
+//   return matureDogsAvgAge / matureDodgs.length;
+// }
 
-console.log(calcAge([5, 2, 4, 1, 15, 8, 3]));
-console.log(calcAge([16, 6, 10, 5, 6, 1, 4]));
+// console.log(calcAge([5, 2, 4, 1, 15, 8, 3]));
+// console.log(calcAge([16, 6, 10, 5, 6, 1, 4]));
 
 const euroUsd2 = 1.2;
 let totalDeposit = movements
@@ -357,14 +377,8 @@ btnLogin.addEventListener('click', function (e) {
     inputLoginPin.value = inputLoginUsername.value = '';
     inputLoginPin.blur();
 
+    UpdateUI(currentAccount);
     //Display Movements //
-    displayMovement(currentAccount.movements);
-
-    //Display Balance //
-    calcBalance(currentAccount);
-
-    //Display Summary//
-    calcDisplaySummary(currentAccount.movements);
   }
 });
 
@@ -374,14 +388,117 @@ btnTransfer.addEventListener('click', function (e) {
   const receiverAcc = accounts.find(
     acc => acc.username === inputTransferTo.value
   );
-  console.log(amount, receiverAcc);
-
+  inputTransferTo.value = inputTransferAmount.value = '';
   if (
     amount > 0 &&
     receiverAcc &&
     currentAccount.balance >= amount &&
     receiverAcc?.username !== currentAccount.username
   ) {
-    console.log(currentAccount.movements.push());
+    currentAccount.movements.push(-amount);
+    receiverAcc.movements.push(amount);
+
+    UpdateUI(currentAccount);
   }
 });
+btnLoan.addEventListener('click', function (e) {
+  e.preventDefault();
+
+  const amount = Number(inputLoanAmount.value);
+
+  if (currentAccount.movements.some(acc => acc >= 0.1 * amount) && amount > 0) {
+    currentAccount.movements.push(amount);
+  }
+  inputLoanAmount.value = '';
+  UpdateUI(currentAccount);
+});
+
+console.log(accounts);
+
+btnClose.addEventListener('click', function (e) {
+  e.preventDefault(e);
+
+  console.log(currentAccount.username, inputCloseUsername.value);
+
+  if (
+    currentAccount.username === inputCloseUsername.value &&
+    currentAccount.pin === Number(inputClosePin.value)
+  ) {
+    let index = accounts.findIndex(
+      acc => acc.username === currentAccount.username
+    );
+    // console.log(index);
+    console.log('i dey here');
+
+    accounts.splice(index, 1);
+    console.log(accounts);
+
+    containerApp.style.opacity = 0;
+  }
+});
+
+// SPLICE MUTATES THE ORIGINAL ARRAY
+
+// some and every//
+// some improves the includes method by adding other conditions like > and <
+console.log(movements.includes(-130));
+
+console.log(movements.some(mov => mov > 1000));
+
+// EVERY
+// ALL THE Element OF THE ARRAY MUST SATISFY THE CONDITION
+
+let outcome = account1.movements.every(mov => mov > 0);
+
+console.log(outcome);
+
+console.log(account4.movements.every(mov => mov > 0));
+
+// seperate callback //
+
+let deposits3 = mov => mov > 0;
+
+console.log(movements.some(deposits3));
+
+// FLAT //
+
+const nestedArr = [[[1, 2], 3], [[4, 5], 6], 7, 8, 9];
+
+console.log(nestedArr.flat(2));
+
+const allMovements = accounts.map(acc => acc.movements);
+
+console.log(allMovements);
+let sumOfAllMovements = allMovements.flat().reduce((acc, curr) => acc + curr);
+
+console.log(sumOfAllMovements);
+
+// FLATMAP //
+let allMovements2 = accounts
+  .flatMap(acc => acc.movements)
+  .reduce((acc, curr) => acc + curr);
+console.log(allMovements2);
+
+// SORT //
+
+const owners = ['jonah', 'paul', 'kudus'];
+
+console.log(owners.sort());
+
+// return < 0 = A, B
+// return > 0 = B, A
+
+// ASCENDING;
+// movements.sort((a, b) => {
+//   if (a > b) return 1; //switch
+//   if (b > a) return -1; //keep
+// });
+
+movements.sort((a, b) => a - b);
+
+// DESCENDING
+// movements.sort((a, b) => {
+//   if (a > b) return -1; //KEEP
+//   if (b > a) return 1; //SWITCH
+// });
+movements.sort((a, b) => b - a);
