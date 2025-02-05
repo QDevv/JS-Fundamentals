@@ -521,3 +521,34 @@ console.log(x);
 
 const arrr4 = Array.from({ length: 5 }, () => 3);
 console.log(arrr4);
+
+const z = Array.from({ length: 5 }, (curr, i) => i + 1);
+
+console.log(z);
+
+const randomDiceRolls = Array.from({ length: 100 }, () =>
+  Math.trunc(Math.random() * 6 + 1)
+);
+
+console.log(randomDiceRolls);
+
+console.log(Math.trunc(Math.random() * 6 + 1));
+
+// querySelectorALL RETURNS A NODELIST - AND A NODELIST IS ITERABLE
+
+// Array.FROM() CAN BE USED TO CONVERT A NODELIST TO AN ARRAY
+
+// spreadOperator works on NODELIST
+
+labelBalance.addEventListener('click', function () {
+  let displayMov = Array.from(
+    document.querySelectorAll('.movements__value'),
+    el => Number(el.textContent.replace('€', ''))
+  );
+
+  // console.log(displayMov);
+  const displayMov2 = [...document.querySelectorAll('.movements__value')];
+
+  let newARR = displayMov2.map(el => el.textContent);
+  console.log(newARR);
+});
