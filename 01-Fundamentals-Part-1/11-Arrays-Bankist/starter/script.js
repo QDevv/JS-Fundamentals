@@ -552,3 +552,50 @@ labelBalance.addEventListener('click', function () {
   let newARR = displayMov2.map(el => el.textContent);
   console.log(newARR);
 });
+
+const movementsAbove1000 = accounts
+  .flatMap(acc => acc.movements)
+  .reduce((accum, curr) => (curr >= 1000 ? ++accum : accum), 0);
+
+console.log(accounts.flatMap(acc => acc.movements).filter(acc => acc >= 1000));
+
+console.log(movementsAbove1000);
+
+// prefixed ++ operator //
+let a = 10;
+console.log(a++);
+
+console.log(a);
+
+// let count1 = 0;
+// let count2 = 0;
+
+// const sumsInObject = accounts
+//   .flatMap(acc => acc.movements)
+//   .reduce(
+//     (accum, curr) => {
+//       curr > 0 ? (accum.Alldeposits += curr) : (accum.Allwithdrawal += curr);
+//       return accum;
+//     },
+//     { Alldeposits: 0, Allwithdrawal: 0 }
+//   );
+
+// const { Alldeposits, Allwithdrawal } = sumsInObject;
+
+// console.log(Alldeposits);
+// console.log(Allwithdrawal);
+
+const { Alldeposits, Allwithdrawal } = accounts
+  .flatMap(acc => acc.movements)
+  .reduce(
+    (accum, curr) => {
+      let transaction = curr > 0 ? 'Alldeposits' : 'Allwithdrawal';
+      accum[transaction] += curr;
+      return accum;
+    },
+    { Alldeposits: 0, Allwithdrawal: 0 }
+  );
+
+console.log(Alldeposits, Allwithdrawal);
+
+let move = accounts.reduce();
