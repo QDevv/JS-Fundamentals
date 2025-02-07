@@ -598,4 +598,7 @@ const { Alldeposits, Allwithdrawal } = accounts
 
 console.log(Alldeposits, Allwithdrawal);
 
-let move = accounts.reduce();
+let move = accounts.reduce((accum, curr, i, arr) => {}, 0);
+
+// console.log(accounts.movements);
+// ssssssssssssssssssssss
