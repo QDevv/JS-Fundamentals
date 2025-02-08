@@ -602,3 +602,120 @@ let move = accounts.reduce((accum, curr, i, arr) => {}, 0);
 
 // console.log(accounts.movements);
 // ssssssssssssssssssssss
+
+function convert_String_To_TitleCase(str) {
+  let newStr = str.split(' ').map((curr, i, arr) => {
+    return curr[0].toUpperCase() + curr.slice(1);
+  });
+
+  // console.log(newStr.join(' '));
+
+  return newStr.join(' ');
+}
+
+console.log(convert_String_To_TitleCase('the boy is good'));
+
+function convertStrings(str) {
+  let exceptions = ['a', 'and', 'the', 'an', 'but', 'i', 'am'];
+
+  const capitalize = str => str[0].toUpperCase() + str.slice(1);
+
+  const titleCase = str
+
+    .toLowerCase()
+    .split(' ')
+    .map(word => (exceptions.includes(word) ? word : capitalize(word)))
+    .join(' ');
+
+  return capitalize(titleCase);
+}
+
+console.log(convertStrings('let the game begin'));
+
+console.log(convertStrings('Dont you address me unless its with four letters'));
+
+console.log(convertStrings('the greatest of all time'));
+
+// CHALLENGE //
+const dogs = [
+  { weight: 22, curFood: 250, owners: ['Alice', 'Bob'] },
+  { weight: 8, curFood: 200, owners: ['Matilda'] },
+  { weight: 13, curFood: 275, owners: ['Sarah', 'John'] },
+  { weight: 32, curFood: 340, owners: ['Michael'] },
+];
+
+const [aa, bb, ...cc] = dogs;
+
+// console.log(...dogs);
+
+// console.log(aa.weight);
+
+let recommendedFood;
+dogs.forEach((dog, i, arr) => (dog.recommendedFood = dog.weight ** 0.75 * 28));
+
+// console.log(dogs);
+
+const sarah = dogs.find(dog => dog.owners.includes('Sarah'));
+console.log(sarah);
+
+console.log(
+  `sarah's dog is eating too${
+    sarah.curFood < sarah.recommendedFood ? ' little' : ' much'
+  }`
+);
+
+// console.log(dogs[0].recommendedFood);
+// let notEatingEnough = [];
+// let eatingTooMuch = [];
+// dogs.map(dog => {
+//   dog.recommendedFood > dog.curFood
+//     ? notEatingEnough.push(dog.owners)
+//     : eatingTooMuch.push(dog.owners);
+// });
+
+// console.log(notEatingEnough, eatingTooMuch);
+
+let notEatingEnough = dogs
+  .filter(dog => dog.curFood < dog.recommendedFood)
+  .flatMap(dog => dog.owners);
+
+console.log(`${notEatingEnough.join(' and ')}'s dog is not eating enough`);
+
+let eatingTooMuch1 = dogs
+  .filter(dog => dog.curFood > dog.recommendedFood)
+  .flatMap(dog => dog.owners);
+
+console.log(`${eatingTooMuch1.join(' and ')}'s dog is eating too much`);
+
+// let nee =
+//   notEatingEnough.flatMap(owner => owner).join(' and ') +
+//   `'s dog are not eating enough`;
+// console.log(nee);
+
+let check_normal_dog = dogs.some(
+  dog =>
+    dog.curFood <= dog.recommendedFood + 0.1 * dog.recommendedFood &&
+    dog.curFood >= dog.recommendedFood - 0.1 * dog.recommendedFood
+);
+
+let check_okay_dog = dogs.some(dog => dog.curFood === dog.recommendedFood);
+console.log(check_okay_dog);
+
+console.log(check_normal_dog);
+
+let okayDogs = dogs.filter(dog => {
+  if (
+    dog.curFood <= dog.recommendedFood + 0.1 * dog.recommendedFood &&
+    dog.curFood >= dog.recommendedFood - 0.1 * dog.recommendedFood
+  ) {
+    return dog;
+  }
+});
+
+console.log(okayDogs);
+
+let srted = dogs
+  .map(dog => dog)
+  .sort((a, b) => a.recommendedFood - b.recommendedFood);
+
+console.log(srted);
