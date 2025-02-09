@@ -692,27 +692,12 @@ console.log(`${eatingTooMuch1.join(' and ')}'s dog is eating too much`);
 //   `'s dog are not eating enough`;
 // console.log(nee);
 
-let check_normal_dog = dogs.some(
-  dog =>
-    dog.curFood <= dog.recommendedFood + 0.1 * dog.recommendedFood &&
-    dog.curFood >= dog.recommendedFood - 0.1 * dog.recommendedFood
-);
+let chkokay = dog =>
+  dog.curFood <= dog.recommendedFood + 0.1 * dog.recommendedFood &&
+  dog.curFood >= dog.recommendedFood - 0.1 * dog.recommendedFood;
 
-let check_okay_dog = dogs.some(dog => dog.curFood === dog.recommendedFood);
-console.log(check_okay_dog);
-
-console.log(check_normal_dog);
-
-let okayDogs = dogs.filter(dog => {
-  if (
-    dog.curFood <= dog.recommendedFood + 0.1 * dog.recommendedFood &&
-    dog.curFood >= dog.recommendedFood - 0.1 * dog.recommendedFood
-  ) {
-    return dog;
-  }
-});
-
-console.log(okayDogs);
+console.log(dogs.some(chkokay));
+console.log(dogs.filter(chkokay));
 
 let srted = dogs
   .map(dog => dog)
