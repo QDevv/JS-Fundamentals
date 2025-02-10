@@ -150,10 +150,32 @@ const updateUI = function (acc) {
   // Display summary
   calcDisplaySummary(acc);
 };
+let currentAccount;
 
+// FAKE LOGIN //
+currentAccount = account1;
+updateUI(currentAccount);
+containerApp.style.opacity = 100;
+
+let now1 = new Date();
+let year = now1.getFullYear();
+let Month = now1.getMonth().padStart(2, 0);
+let day = `${now1.getDate()}`.padStart(2, 0);
+let hr = now1.getHours().padStart(2, 0);
+let min = now1.getMinutes().padStart(2, 0);
+let sec = now1.getSeconds().padStart(2, 0);
+
+// sec = sec < 10 ? '0' + sec : sec;
+
+// console.log(sec);
+
+// hr = hr < 10 ? '0' + hr : hr;
+// day = day < 10 ? '0' + day : day;
+// Month = Month < 10 ? '0' + Month : Month;
+
+labelDate.textContent = `${day}/${Month}/${year}, ${hr}:${sec}`;
 ///////////////////////////////////////
 // Event handlers
-let currentAccount;
 
 btnLogin.addEventListener('click', function (e) {
   // Prevent form from submitting
@@ -359,4 +381,22 @@ console.log(huge + ' is really big');
 
 // DIVISION
 console.log(12n / 3n);
-console.log();
+// console.log();
+
+// DATES AND TIME //
+let now = new Date();
+console.log(now);
+
+let fixedDate = new Date(2034, 10, 4, 3, 14, 22);
+
+console.log(fixedDate.getFullYear());
+console.log(fixedDate.getMonth());
+console.log(fixedDate.getDate());
+console.log(fixedDate.getMinutes());
+console.log(fixedDate.getSeconds());
+
+console.log(fixedDate.getTime()); //number of milliseconds since 1970 till fixedDate
+
+console.log(new Date(2046219262000));
+
+console.log(Date.now());
