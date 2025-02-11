@@ -22,8 +22,8 @@ const account1 = {
     '2020-04-01T10:17:24.185Z',
     '2020-05-08T14:11:59.604Z',
     '2020-05-27T17:01:17.194Z',
-    '2020-07-11T23:36:17.929Z',
-    '2020-07-12T10:51:36.790Z',
+    '2025-02-10T23:36:17.929Z',
+    '2025-02-11T10:51:36.790Z',
   ],
   currency: 'EUR',
   locale: 'pt-PT', // de-DE
@@ -81,6 +81,35 @@ const inputClosePin = document.querySelector('.form__input--pin');
 /////////////////////////////////////////////////
 // Functions
 
+const calcDaysPassed = (date1, date2) =>
+  (date2 - date1) / (1000 * 60 * 60 * 24);
+
+console.log(calcDaysPassed(new Date(2033, 10, 19), new Date(2033, 10, 25)));
+
+const formatDates = function (dates, locale) {
+  const calcDaysPassed = (date1, date2) =>
+    Math.round(Math.abs(date2 - date1) / (1000 * 60 * 60 * 24));
+
+  const daysPassed = calcDaysPassed(new Date(), dates);
+
+  if (daysPassed === 0) return 'Today';
+  if (daysPassed === 1) return 'Yesterday';
+  if (daysPassed <= 7) return `${daysPassed}days`;
+
+  // let year = dates.getFullYear();
+  // let Month = `${dates.getMonth() + 1}`.padStart(2, 0);
+  // let day = `${dates.getDate()}`.padStart(2, 0);
+
+  return new Intl.DateTimeFormat(locale).format(dates);
+};
+
+const formatCurr = function (value, locale, currency) {
+  return new Intl.NumberFormat(locale, {
+    style: 'currency',
+    currency: currency,
+  }).format(value);
+};
+
 const displayMovements = function (acc, sort = false) {
   console.log(sort);
 
@@ -94,14 +123,14 @@ const displayMovements = function (acc, sort = false) {
     const type = mov > 0 ? 'deposit' : 'withdrawal';
 
     let date = new Date(acc.movementsDates[i]);
+    let displayDate = formatDates(date, acc.locale);
+    let formatCurrency = formatCurr(mov, acc.locale, acc.currency);
 
-    let year = date.getFullYear();
-    let Month = `${date.getMonth()}`.padStart(2, 0);
-    let day = `${date.getDate()}`.padStart(2, 0);
-    let hr = `${date.getHours()}`.padStart(2, 0);
-    let min = `${date.getMinutes()}`.padStart(2, 0);
-
-    let displayDate = `${day}/${Month}/${year}, ${hr}:${min}`;
+    // let year = date.getFullYear();
+    // let Month = `${date.getMonth()}`.padStart(2, 0);
+    // let day = `${date.getDate()}`.padStart(2, 0);
+    // let hr = `${date.getHours()}`.padStart(2, 0);
+    // let min = `${date.getMinutes()}`.padStart(2, 0);
 
     const html = `
       <div class="movements__row">
@@ -109,7 +138,7 @@ const displayMovements = function (acc, sort = false) {
       i + 1
     } ${type}</div>
     <div class="movements__date">${displayDate}</div>
-        <div class="movements__value">${mov}€</div>
+        <div class="movements__value">${formatCurrency}</div>
       </div>
     `;
 
@@ -119,19 +148,26 @@ const displayMovements = function (acc, sort = false) {
 
 const calcDisplayBalance = function (acc) {
   acc.balance = acc.movements.reduce((acc, mov) => acc + mov, 0);
-  labelBalance.textContent = `${acc.balance}€`;
+
+  //format currency
+  let formatCurrency = formatCurr(acc.balance, acc.locale, acc.currency);
+  labelBalance.textContent = `${formatCurrency}`;
 };
 
 const calcDisplaySummary = function (acc) {
   const incomes = acc.movements
     .filter(mov => mov > 0)
     .reduce((acc, mov) => acc + mov, 0);
-  labelSumIn.textContent = `${incomes}€`;
+  labelSumIn.textContent = formatCurr(incomes, acc.locale, acc.currency);
 
   const out = acc.movements
     .filter(mov => mov < 0)
     .reduce((acc, mov) => acc + mov, 0);
-  labelSumOut.textContent = `${Math.abs(out)}€`;
+  labelSumOut.textContent = formatCurr(
+    Math.abs(out.toFixed(2)),
+    acc.locale,
+    acc.currency
+  );
 
   const interest = acc.movements
     .filter(mov => mov > 0)
@@ -142,7 +178,7 @@ const calcDisplaySummary = function (acc) {
         int >= 1
     )
     .reduce((acc, int) => acc + int, 0);
-  labelSumInterest.textContent = `${interest}€`;
+  labelSumInterest.textContent = formatCurr(interest, acc.locale, acc.currency);
 };
 
 const createUsernames = function (accs) {
@@ -165,13 +201,15 @@ const updateUI = function (acc) {
 
   // Display summary
   calcDisplaySummary(acc);
+
+  // formatDates(movementsDates);
 };
 let currentAccount;
 
 // FAKE LOGIN //
-currentAccount = account1;
-updateUI(currentAccount);
-containerApp.style.opacity = 100;
+// currentAccount = account1;
+// updateUI(currentAccount);
+// containerApp.style.opacity = 100;
 
 // sec = sec < 10 ? '0' + sec : sec;
 
@@ -184,6 +222,8 @@ containerApp.style.opacity = 100;
 // labelDate.textContent = `${day}/${Month}/${year}, ${hr}:${sec}`;
 ///////////////////////////////////////
 // Event handlers
+
+// console.log(locale);
 
 btnLogin.addEventListener('click', function (e) {
   // Prevent form from submitting
@@ -204,14 +244,28 @@ btnLogin.addEventListener('click', function (e) {
     //show dates//
 
     let now1 = new Date();
-    let year = now1.getFullYear();
-    let Month = `${now1.getMonth()}`.padStart(2, 0);
-    let day = `${now1.getDate()}`.padStart(2, 0);
-    let hr = `${now1.getHours()}`.padStart(2, 0);
-    let min = `${now1.getMinutes()}`.padStart(2, 0);
-    let sec = `${now1.getSeconds()}`.padStart(2, 0);
 
-    labelDate.textContent = `${day}/${Month}/${year}`;
+    const now4 = new Date();
+    const options = {
+      hour: 'numeric',
+      minute: 'numeric',
+      day: 'numeric',
+      month: 'numeric',
+      year: 'numeric',
+      // weekday: 'long',
+    };
+    const locale = currentAccount.locale;
+    labelDate.textContent = new Intl.DateTimeFormat(locale, options).format(
+      now4
+    );
+    // let year = now1.getFullYear();
+    // let Month = `${now1.getMonth()}`.padStart(2, 0);
+    // let day = `${now1.getDate()}`.padStart(2, 0);
+    // let hr = `${now1.getHours()}`.padStart(2, 0);
+    // let min = `${now1.getMinutes()}`.padStart(2, 0);
+    // let sec = `${now1.getSeconds()}`.padStart(2, 0);
+
+    // labelDate.textContent = `${day}/${Month}/${year}`;
     // Clear input fields
     inputLoginUsername.value = inputLoginPin.value = '';
     inputLoginPin.blur();
@@ -434,7 +488,21 @@ const future = new Date(2033, 10, 19, 15, 23);
 
 console.log(+future);
 
-const calcDaysPassed = (date1, date2) =>
-  (date2 - date1) / (1000 * 60 * 60 * 24);
+// INTERNATIONALIZING NUMBERS
 
-console.log(calcDaysPassed(new Date(2033, 10, 19), new Date(2033, 10, 25)));
+let numm = 3884767.902;
+
+const options = {
+  style: 'currency',
+  unit: 'meter',
+  currency: 'EUR',
+  // useGrouping: false,
+};
+
+console.log(new Intl.NumberFormat('en-UK', options).format(numm));
+console.log(Intl.NumberFormat('de-DE', options).format(numm));
+console.log(
+  'Browser:',
+  navigator.language,
+  new Intl.NumberFormat(navigator.language, options).format(numm)
+);
