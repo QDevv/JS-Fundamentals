@@ -204,7 +204,37 @@ const updateUI = function (acc) {
 
   // formatDates(movementsDates);
 };
-let currentAccount;
+
+let startLogoutTimer = () => {
+  let tick = function () {
+    let min = Math.trunc(time / 60);
+    let sec = time % 60;
+
+    // update ui with the time in each call
+    labelTimer.textContent =
+      `${min}`.padStart(2, 0) + ':' + `${sec}`.padStart(2, 0);
+
+    // when timer reaches 0 seconds, logout user
+    if (time === 0) {
+      clearInterval(timer);
+      labelWelcome.textContent = `Log in to get started`;
+
+      containerApp.style.opacity = 0;
+    }
+    // decrease counter by 1 every sec
+    time--;
+  };
+  let time = 50;
+  // call the timer every sec
+  tick();
+  let timer = setInterval(tick, 1000);
+
+  // if (time === 0) containerApp.style.opacity = 0;
+  // console.log(time);
+  return timer;
+};
+
+let currentAccount, timer;
 
 // FAKE LOGIN //
 // currentAccount = account1;
@@ -270,6 +300,9 @@ btnLogin.addEventListener('click', function (e) {
     inputLoginUsername.value = inputLoginPin.value = '';
     inputLoginPin.blur();
 
+    if (timer) clearInterval(timer);
+    timer = startLogoutTimer();
+
     // Update UI
     updateUI(currentAccount);
   }
@@ -296,6 +329,10 @@ btnTransfer.addEventListener('click', function (e) {
     currentAccount.movementsDates.push(new Date().toISOString());
     receiverAcc.movementsDates.push(new Date().toISOString());
 
+    //reset timer
+    clearInterval(timer);
+    timer = startLogoutTimer();
+
     // Update UI
     updateUI(currentAccount);
   }
@@ -311,6 +348,9 @@ btnLoan.addEventListener('click', function (e) {
     currentAccount.movements.push(amount);
 
     currentAccount.movementsDates.push(new Date().toISOString());
+
+    clearInterval(timer);
+    timer = startLogoutTimer();
 
     // Update UI
     updateUI(currentAccount);
@@ -506,3 +546,29 @@ console.log(
   navigator.language,
   new Intl.NumberFormat(navigator.language, options).format(numm)
 );
+
+// SETTIMEOUT
+
+let ingredients = ['Olives', 'Spinch'];
+let pizzaTimer = setTimeout(
+  (ing1, ing2) => console.log(`Your ${ing1} & ${ing2} pizza is ready`),
+  3000,
+  ...ingredients
+);
+
+if (ingredients.includes('Spinach')) clearTimeout(pizzaTimer);
+
+setInterval(() => {
+  const now = new Date();
+  console.log(
+    `${now.getHours()}`.padStart(2, 0) +
+      ':' +
+      `${now.getMinutes()}`.padStart(2, 0)
+  );
+
+  // console.log(
+  // `${now.getHours()}`.padStart(2, 0)`: ${now.getSeconds()}`.padStart(2, 0)
+  // );
+}, 20000);
+
+// setInterval - Implementing the countdwn feature
