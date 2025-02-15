@@ -32,5 +32,9 @@ document.addEventListener('keydown', function (e) {
   }
 });
 
-// NOTES
+// NOTES //
 // FOREACH METOD CAN BE CALLED ON A NODELIST
+
+// array.forEach(element => {
+
+// });
