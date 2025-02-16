@@ -38,3 +38,110 @@ document.addEventListener('keydown', function (e) {
 // array.forEach(element => {
 
 // });
+// SELECTING, CREATING AND DELETING ELEMENTS
+console.log(document.documentElement);
+console.log(document.head);
+console.log(document.body);
+
+const Header = document.querySelector('.header');
+let allSection = document.querySelectorAll('.section');
+
+console.log(allSection);
+
+document.getElementById('section--1');
+
+const allButtons = document.getElementsByTagName('button');
+
+console.log(allButtons);
+
+console.log(document.getElementsByClassName('btn'));
+
+const message = document.createElement('div');
+
+message.innerHTML =
+  'This website uses cookies <button class="btn btn--close-cookie">Got it!</button>';
+
+Header.append(message);
+// Header.append(message.cloneNode(true));
+// Header.after(message);
+
+// Header.after(message);
+
+// DELETE ELEMENTS
+
+document.querySelector('.btn--close-cookie').addEventListener('click', () => {
+  message.remove();
+});
+
+// STYLE
+message.style.backgroundColor = '#37383d';
+message.style.width = '120%';
+
+console.log(getComputedStyle(message).color);
+console.log(getComputedStyle(message).backgroundColor);
+
+message.style.height =
+  Number.parseFloat(getComputedStyle(message), 10) + 40 + 'px';
+
+document.documentElement.style.setProperty('--color-primary', 'orangered');
+
+// attributes
+
+let logo = document.querySelector('.nav__logo');
+
+// nonstandard ATTRIBUTE
+
+console.log(logo.designer);
+console.log(logo.getAttribute('designer'));
+
+// setAttribute
+logo.alt = 'sill mee';
+
+console.log(logo.alt);
+
+logo.setAttribute('class', 'dess');
+
+console.log(logo.className);
+
+console.log(logo.src);
+console.log(logo.getAttribute('src'));
+
+console.log(logo.dataset.versionNumber);
+
+// class
+
+logo.classList.add('c', 'l', 'p'); //you can add multiple classes
+logo.classList.remove('c');
+logo.classList.contains('c');
+logo.classList.toggle('c');
+
+// IMPLEMENTING SMOOTH SCROLLING
+const section1 = document.querySelector('#section--1');
+
+const btnScrollTo = document.querySelector('.btn--scroll-to');
+
+btnScrollTo.addEventListener('click', function name(e) {
+  const coords = section1.getBoundingClientRect();
+
+  console.log(coords);
+
+  console.log(e.target.getBoundingClientRect());
+  console.log('Current scroll (X/Y)', window.scrollX, scrollY); //the distance (px) i scrolled away from the top(y) and side(x)
+
+  console.log(
+    'height/width viewport',
+    document.documentElement.clientHeight,
+    document.documentElement.clientWidth
+  );
+
+  // scrolling //
+  // window.scrollTo(coords.left + window.scrollX, coords.top + window.scrollY);
+
+  // window.scrollTo({
+  //   left: coords.left + window.scrollX,
+  //   top: coords.top + window.scrollY,
+  //   behavior: 'smooth',
+  // });
+
+  section1.scrollIntoView({ behavior: 'smooth' });
+});
