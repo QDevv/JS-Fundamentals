@@ -145,3 +145,21 @@ btnScrollTo.addEventListener('click', function name(e) {
 
   section1.scrollIntoView({ behavior: 'smooth' });
 });
+
+// TYPE OF EVENT AND EVENT HANDLER //
+
+const H1 = document.querySelector('h1');
+
+const alert1 = function (e) {
+  alert('AddEventListener is active!');
+};
+
+H1.addEventListener('mouseenter', alert1);
+
+// H1.onmouseenter = function (e) {
+//   alert('second addEventListener(onmouseenter)');
+// };
+
+setTimeout(() => H1.removeEventListener('mouseenter', alert1), 3000);
+
+// CAPTURING AND BUBBLING //
