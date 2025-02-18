@@ -151,10 +151,10 @@ btnScrollTo.addEventListener('click', function name(e) {
 const H1 = document.querySelector('h1');
 
 const alert1 = function (e) {
-  alert('AddEventListener is active!');
+  // alert('AddEventListener is active!');
 };
 
-H1.addEventListener('mouseenter', alert1);
+// H1.addEventListener('mouseenter', alert1);
 
 // H1.onmouseenter = function (e) {
 //   alert('second addEventListener(onmouseenter)');
@@ -163,3 +163,61 @@ H1.addEventListener('mouseenter', alert1);
 setTimeout(() => H1.removeEventListener('mouseenter', alert1), 3000);
 
 // CAPTURING AND BUBBLING //
+const randomiNT = (max, min) =>
+  Math.floor(Math.random() * (max - min + 1) + min);
+const randomColor = () =>
+  `rgb(${randomiNT(0, 255)}, ${randomiNT(0, 255)}, ${randomiNT(0, 255)})`;
+
+console.log(randomColor());
+
+document.querySelector('.nav__link').addEventListener('click', function (e) {
+  this.style.backgroundColor = randomColor();
+  console.log('LINK', e.target, e.currentTarget);
+
+  //STOP PROPAGATION //
+  e.stopPropagation();
+});
+
+document.querySelector('.nav__links').addEventListener('click', function (e) {
+  // this.style.backgroundColor = randomColor();
+  // console.log('CONTAINER', e.target, e.currentTarget);
+});
+
+document.querySelector('.nav').addEventListener('click', function (e) {
+  // this.style.backgroundColor = randomColor();
+  // console.log('NAV', e.target, e.currentTarget);
+});
+
+////////////////////////////////////////////////////////////////////////////////
+
+document.querySelectorAll('.nav__link').forEach(link =>
+  link.addEventListener('click', function (e) {
+    // this.style.backgroundColor = randomColor();
+    console.log('llink');
+
+    // const id = this.getAttribute('href');
+    // console.log(id);
+
+    // document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
+
+    // e.preventDefault();
+  })
+);
+
+// EVENT DELEGATION
+// 1. ADD addEventListener TO COMMON PARENT Element
+// 2. DETERMINE WHAT ELEMENT ORIGINATED THE EVENT
+
+document.querySelector('.nav__links').addEventListener('click', function (e) {
+  // document.querySelector(this.getAttribute('href'))
+  console.log(e.target);
+  e.preventDefault();
+
+  if (e.target.classList.contains('nav__link')) {
+    console.log('LINKS');
+    const id = e.target.getAttribute('href');
+    // console.log(id);
+
+    document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
+  }
+});
