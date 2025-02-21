@@ -221,3 +221,88 @@ document.querySelector('.nav__links').addEventListener('click', function (e) {
     document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
   }
 });
+
+// DOM TRAVERSING
+
+const h1 = document.querySelector('h1');
+
+console.log(h1);
+
+console.log(h1.querySelectorAll('.highlight'));
+console.log(h1.childNodes); //returns all the child nodes
+
+console.log(h1.children); //returns only the children elements(not text or comment)
+
+h1.firstElementChild.style.color = 'white';
+console.log(h1.parentNode, h1.parentElement);
+
+// h1.closest('.header').style.background = 'var(--gradient-secondary)';
+
+console.log(h1.parentElement);
+console.log(h1.previousElementSibling);
+console.log(h1.nextElementSibling);
+console.log(h1.parentElement.children);
+
+[...h1.parentElement.children].forEach(el => {
+  if (el != h1) {
+    el.style.transform = 'scale(0.5)';
+  }
+});
+
+const tab = document.querySelectorAll('.operations__tab');
+const tab_container = document.querySelector('.operations__tab-container');
+const tab_content = document.querySelectorAll('.operations__content');
+
+// console.log(Boolean(null));
+
+tab_container.addEventListener('click', function (e) {
+  const clicked = e.target.closest('.operations__tab');
+  console.log(clicked);
+
+  if (!clicked) return;
+
+  // REMOVE TABS
+  tab.forEach(t => t.classList.remove('operations__tab--active'));
+  tab_content.forEach(content =>
+    content.classList.remove('operations__content--active')
+  );
+
+  // console.log(clicked.getAttribute('data-tab'));
+  let numClick = clicked.getAttribute('data-tab');
+  // const numberClicked = document.querySelector(`.operations__tab--${numClick}`);
+  // const clickedContent = document.querySelector(
+  //   `.operations__content--${numClick}`
+  // );
+
+  // ACTIVATE TABS
+  clicked.classList.add('operations__tab--active');
+
+  document
+    .querySelector(`.operations__content--${numClick}`)
+    .classList.add('operations__content--active');
+  //Active content area//
+});
+
+let nav = document.querySelector('.nav');
+
+const handleHover = function (e, opacity) {
+  if (e.target.classList.contains('nav__link')) {
+    const link = e.target;
+    const sibling = link.closest('.nav').querySelectorAll('.nav__link');
+    // const logo = link.closest('nav').querySelector('img');
+    const logo = link.closest('nav').querySelector('img');
+    console.log(logo);
+
+    sibling.forEach(kin => {
+      if (kin !== e.target) kin.style.opacity = opacity;
+    });
+    logo.style.opacity = opacity;
+  }
+};
+nav.addEventListener('mouseover', e => {
+  handleHover(e, 0.5);
+});
+
+nav.addEventListener('mouseout', e => {
+  handleHover(e, 1);
+});
