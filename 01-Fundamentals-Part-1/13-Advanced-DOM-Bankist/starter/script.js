@@ -294,15 +294,79 @@ const handleHover = function (e, opacity) {
     console.log(logo);
 
     sibling.forEach(kin => {
-      if (kin !== e.target) kin.style.opacity = opacity;
+      if (kin !== e.target) kin.style.opacity = this;
     });
-    logo.style.opacity = opacity;
+    logo.style.opacity = this;
   }
 };
-nav.addEventListener('mouseover', e => {
-  handleHover(e, 0.5);
+nav.addEventListener('mouseover', handleHover.bind(0.5));
+
+nav.addEventListener('mouseout', handleHover.bind(1));
+
+// STICKY NAVIGATION
+// const initialCords = section1.getBoundingClientRect();
+
+// window.addEventListener('scroll', function () {
+//   console.log(window.scrollY);
+//   console.log(initialCords.top);
+
+//   if (window.scrollY > initialCords.top) nav.classList.add('sticky');
+//   else nav.classList.remove('sticky');
+// });
+
+// STICKY NAVIGATON: INTERSECTION OBSERVER API
+
+// const obsCallback = function (entries, observer) {
+//   entries.forEach(entry => console.log(entry));
+// };
+
+// const obsOptions = {
+//   root: null,
+//   threshold: 0,
+// };
+
+// const observer = new IntersectionObserver(obsCallback, obsOptions);
+
+// observer.observe(Header);
+
+const navHeight = nav.getBoundingClientRect().height;
+
+const obsCallback = function (entries) {
+  const [entry] = entries;
+
+  console.log(entry);
+  if (!entry.isIntersecting) nav.classList.add('sticky');
+  else nav.classList.remove('sticky');
+};
+
+const obsOptions = {
+  root: null,
+  threshold: 0,
+  rootMargin: `-${navHeight}px`,
+};
+
+const observer = new IntersectionObserver(obsCallback, obsOptions);
+
+observer.observe(Header);
+
+// REVEAL SECTIONS
+const allSections = document.querySelectorAll('.section');
+
+const revealSections = function (entries, observer) {
+  const [entry] = entries;
+  console.log(entry);
+  if (!entry.isIntersecting) return;
+
+  entry.target.classList.remove('section--hidden');
+  observer.unobserve(entry.target);
+};
+
+const sectionObserver = new IntersectionObserver(revealSections, {
+  root: null,
+  threshold: 0.15,
 });
 
-nav.addEventListener('mouseout', e => {
-  handleHover(e, 1);
+allSections.forEach(section => {
+  sectionObserver.observe(section);
+  section.classList.add('section--hidden');
 });
