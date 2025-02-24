@@ -392,3 +392,48 @@ const imgObserver = new IntersectionObserver(lazyImgFunc, {
 });
 
 allImages.forEach(img => imgObserver.observe(img));
+
+const slides = document.querySelectorAll('.slide');
+const btnLeft = document.querySelector('.slider__btn--left');
+
+const btnRight = document.querySelector('.slider__btn--right');
+
+let curslide = 0;
+const maxSlide = slides.length;
+
+const slider = document.querySelector('.slider');
+// slider.style.transform = 'scale(0.4) translateX(-800px)';
+// slider.style.overflow = 'visible';
+
+const gotoSlide = function (slide) {
+  slides.forEach(
+    (s, i) => (s.style.transform = `translateX(${100 * (i - slide)}%)`)
+  );
+};
+
+gotoSlide(0);
+
+const nextSlide = function () {
+  if (curslide === maxSlide - 1) {
+    curslide = 0;
+  } else {
+    curslide++;
+  }
+  gotoSlide(curslide);
+};
+const previousSlide = function () {
+  if (curslide === 0) {
+    curslide = maxSlide - 1;
+  } else {
+    curslide--;
+  }
+  gotoSlide(curslide);
+};
+
+btnLeft.addEventListener('click', previousSlide);
+btnRight.addEventListener('click', nextSlide);
+
+document.addEventListener('keydown', function (e) {
+  if (e.key === 'ArrowRight') nextSlide();
+  e.key === 'ArrowLeft' && previousSlide();
+});
