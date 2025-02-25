@@ -402,13 +402,26 @@ let curslide = 0;
 const maxSlide = slides.length;
 
 const slider = document.querySelector('.slider');
+
+const dotContainer = document.querySelector('.dots');
 // slider.style.transform = 'scale(0.4) translateX(-800px)';
 // slider.style.overflow = 'visible';
+
+const activateDots = slide => {
+  document
+    .querySelectorAll('.dots__dot')
+    .forEach(dot => dot.classList.remove('.dots__dot--active'));
+
+  document
+    .querySelector(`.dots__dot[data-slide="${slide}"]`)
+    .classList.add('dots__dot--active');
+};
 
 const gotoSlide = function (slide) {
   slides.forEach(
     (s, i) => (s.style.transform = `translateX(${100 * (i - slide)}%)`)
   );
+  console.log(slide);
 };
 
 gotoSlide(0);
@@ -420,6 +433,7 @@ const nextSlide = function () {
     curslide++;
   }
   gotoSlide(curslide);
+  activateDots(curslide);
 };
 const previousSlide = function () {
   if (curslide === 0) {
@@ -428,6 +442,7 @@ const previousSlide = function () {
     curslide--;
   }
   gotoSlide(curslide);
+  activateDots(curslide);
 };
 
 btnLeft.addEventListener('click', previousSlide);
@@ -437,3 +452,40 @@ document.addEventListener('keydown', function (e) {
   if (e.key === 'ArrowRight') nextSlide();
   e.key === 'ArrowLeft' && previousSlide();
 });
+
+const createDots = function () {
+  slides.forEach((_, i) =>
+    dotContainer.insertAdjacentHTML(
+      'beforeend',
+      `<button class="dots__dot" data-slide="${i}"></button>`
+    )
+  );
+};
+
+createDots();
+
+dotContainer.addEventListener('click', e => {
+  if (e.target.classList.contains('dots__dot')) {
+    const { slide } = e.target.dataset;
+    gotoSlide(slide);
+    activateDots(slide);
+  }
+});
+
+// OBJECT ORIENTED PROGRAMMING
+
+// INSTANCES ARE COPIES OF AN OBJECT CLASS
+
+// 4 FUNDAMENTAL PRINCIPLE OF OOP
+
+// - ABSTRACTION; IGNORE OR HIDE DETAILS THAT DOESNT MATTER
+// - ENCAPSULATION; KEEPING PROPERTIES AND METHOD PRIVATE INSIDE THE CLASS, SO THEY ARE NOT ACCESSIBLE FROM OUTSIDE THE CLASS
+// - INHERITANCE: makes all properties and method of a certain class availabe to a child class
+// - POLYMORPHISM; A child class overwrites a method inherited from a parent class
+
+// PROTOTYPAL INHERITANCE - The prototype contains method(behavior) that are accessible to all other objects linked to it
+
+// How do we implement pROtotype in JS
+// - CONSTRUCTOR FUNCTIONS
+// - ES6 Classes
+// - Object.create
