@@ -14,3 +14,8 @@ console.log(james);
 // 2. function is called, this ={}
 // 3. {} linked to prototype
 //4. function automatically returns prototype
+
+const matilda = new Person('matilda', 1999);
+const joe = new Person('joe', 1985);
+
+console.log(joe, matilda);
