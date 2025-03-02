@@ -182,7 +182,9 @@ const Vehicle = class {
   }
   get speedUS() {
     return this.speed;
+    sss;
   }
+  // constructor
   set speedUS(par) {
     this.speed = this.speed / 1.6;
   }
