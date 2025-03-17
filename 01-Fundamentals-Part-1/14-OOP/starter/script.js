@@ -1,6 +1,6 @@
 'use strict';
-const Person = function (name, birthyear) {
-  this.name = name;
+const Person = function (firstname, birthyear) {
+  this.firstname = firstname;
   this.birthyear = birthyear;
 
   // NEVER DO THIS
@@ -147,7 +147,7 @@ PersonCl.hey = function (params) {
 };
 PersonCl.hey();
 
-// Object.CREATE
+// Object.CREATE can be used to manually set the prototype of an object to any other object we want
 
 const personProto = {
   calcAge() {
@@ -193,3 +193,25 @@ const Vehicle = class {
 const ford = new Vehicle('ford', 120);
 
 console.log(ford.speedUS);
+
+// INHERITANCE BETWEEN CLASSES //
+
+const student = function (firstname, birthyear, course) {
+  Person.call(this, firstname, birthyear);
+  this.course = course;
+};
+student.prototype = Object.create(Person.prototype);
+
+student.prototype.introduce = function () {
+  console.log(
+    `my name is ${this.firstname}. i am a ${2037 - this.birthyear} year old ${
+      this.course
+    } student`
+  );
+};
+const mike = new student('Habib', 2020, 'software engineering');
+
+mike.introduce();
+mike.calcAge();
+
+console.log(mike.__proto__.__proto__);
