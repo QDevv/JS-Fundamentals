@@ -11,4 +11,23 @@ const inputDuration = document.querySelector('.form__input--duration');
 const inputCadence = document.querySelector('.form__input--cadence');
 const inputElevation = document.querySelector('.form__input--elevation');
 
-function map(params) {}
+function name(params) {}
+function name(params) {}
+function name(params) {}
+function name(params) {}
+function name(params) {}
+function name(params) {}
+function name(params) {}
+function name(params) {}
+function name(params) {}
+function name(params) {}
+function name(params) {}
+function name(params) {}
+function name(params) {}
+function name(params) {}
+function name(params) {}
+function name(params) {}
+function name(params) {}
+v;
+function name(params) {}
+function name(params) {}
